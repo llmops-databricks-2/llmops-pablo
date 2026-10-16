@@ -47,14 +47,3 @@ the recurring workflows.
 In v1, leave out anything that **sends** something: posting to Teams, emailing students,
 commenting on PRs. The lecturer copies the recap out themselves. That avoids the agent acting on
 the lecturer's behalf and keeps the privacy model simple.
-
-## What to ship first
-
-1. The agent gets `search_course_content` for content questions.
-2. The agent gets the Genie space for open-ended data questions.
-3. The agent gets `list_questions` for the digest.
-4. The agent gets `get_coverage` for the coverage map.
-5. The agent gets `mark_item_reviewed` for lecturer feedback.
-
-These five cover the digest, follow-up questions and the feedback loop. The team adds the other
-tools once MLflow traces show the agent needs them.
