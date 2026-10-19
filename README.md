@@ -64,6 +64,9 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   Commit it with the hooks installed (below): the first commit stops once, after the hooks have
   formatted the notebooks and fixed what ruff can, and goes through when you add their changes and
   commit again. Ruff rules are configured in `pyproject.toml`.
+- `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
+  the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
+  `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
   development mode, the default), `acc` and `prd`. It builds the package as a wheel with `uv build`
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
