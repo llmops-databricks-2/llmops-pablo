@@ -55,11 +55,11 @@
   <!-- left column: content -->
   <rect x="116" y="262" width="180" height="52" rx="6" class="b-sched"/>
   <text x="206" y="284" text-anchor="middle" class="box">Course materials</text>
-  <text x="206" y="301" text-anchor="middle" class="small">slides · readings · transcripts</text>
+  <text x="206" y="301" text-anchor="middle" class="small">slides · readings · transcripts · chat</text>
 
   <rect x="116" y="340" width="180" height="52" rx="6" class="b-sched"/>
-  <text x="216" y="362" text-anchor="middle" class="box">ai_parse_document</text>
-  <text x="206" y="379" text-anchor="middle" class="small">+ transcript segmentation</text>
+  <text x="216" y="362" text-anchor="middle" class="box">Parse sources</text>
+  <text x="206" y="379" text-anchor="middle" class="small">ai_parse_document (PDFs) · Python</text>
 
   <rect x="116" y="418" width="180" height="52" rx="6" class="b-store"/>
   <text x="216" y="440" text-anchor="middle" class="box">Content chunks</text>
@@ -72,7 +72,7 @@
 
   <!-- right column: facts -->
   <rect x="320" y="262" width="184" height="52" rx="6" class="b-sched"/>
-  <text x="412" y="284" text-anchor="middle" class="box">Syllabus · Teams chat</text>
+  <text x="412" y="284" text-anchor="middle" class="box">Syllabus</text>
   <text x="412" y="301" text-anchor="middle" class="small">+ GitHub PRs and reviews</text>
 
   <rect x="320" y="340" width="184" height="52" rx="6" class="b-core"/>

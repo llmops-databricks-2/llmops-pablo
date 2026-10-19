@@ -79,15 +79,19 @@ This is simpler, and it keeps the lecturer in control of what goes in.
 The structure follows the ArXiv curator: **1 prepare → 2 deploy → 3 call → 4 monitor**.
 
 ### 1 · Prepare data (Lakeflow job)
-- **Content path (left column):** slides, readings and transcripts are parsed with
-  `ai_parse_document`, and transcripts are split into segments that keep their timestamps. The
-  chunks are embedded with the course embedding service (GTE Large) and stored in
-  **Lakebase pgvector**. A UC function exposes content search to the agent as an MCP tool.
-- **Facts path (right column):** the syllabus, chat logs, PR data and transcript segments go
+- **Parse sources (left column, second box):** each lecture's files are parsed into Delta tables that both paths
+  read. Slide and reading PDFs are parsed with `ai_parse_document`, one row per page, into
+  `lecture_slides`. Teams transcripts are split in Python into speaker turns that keep their
+  timestamps, into `lecture_transcript`. Teams chats are split into messages with UTC times, into
+  `lecture_chat`. The transcript header also gives one row per lecture in `lectures`.
+- **Content path (left column):** slide pages and transcript turns are chunked, embedded with the
+  course embedding service (GTE Large) and stored in **Lakebase pgvector**. A UC function exposes
+  content search to the agent as an MCP tool.
+- **Facts path (right column):** the syllabus, chat messages, PR data and transcript turns go
   through an `ai_query` step that produces **LLM-derived data**. It extracts questions, matches them
-  to answers, and tags everything to syllabus topics. The results land in Delta tables (`lectures`,
-  `questions`, `syllabus_topics`, `pr_activity`), and a **Genie space** over those tables is
-  exposed as a managed MCP.
+  to answers, and tags everything to syllabus topics. The results land in Delta tables
+  (`questions`, `syllabus_topics`, `pr_activity`) next to `lectures`, and a **Genie space** over
+  those tables is exposed as a managed MCP.
 
 ### 2 · Deploy the agent (Lakeflow job, on demand)
 The same as the reference: log the agent in MLflow, register it in Unity Catalog and deploy it
