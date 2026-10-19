@@ -20,6 +20,21 @@
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC Install the package wheel that `databricks bundle deploy` uploaded next to the bundle files.
+# MAGIC Update the version in the path when `version.txt` changes. Locally, these magic cells are
+# MAGIC comments and the package comes from the uv environment.
+
+# COMMAND ----------
+
+# MAGIC %pip install ../../artifacts/.internal/arxiv_curator-0.0.1-py3-none-any.whl
+
+# COMMAND ----------
+
+# MAGIC %restart_python
+
+# COMMAND ----------
+
 from datetime import UTC, datetime
 from pathlib import PurePosixPath
 from zoneinfo import ZoneInfo
