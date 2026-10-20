@@ -74,8 +74,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
   `-acc`, `-prd`), one serverless notebook task that installs the wheel and writes one row to the
   `hello` table of your schema in the target's catalog, such as
-  `llmops_dev.pablo.hello`. It also deploys the `lecture_ingestion` job
-  (`job-lecture-ingestion-pablo-dev`, `-acc`, `-prd`), which runs
+  `llmops_dev.pablo.hello`. It also deploys the `lecture_insights_assistant` job
+  (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
   course's onboarding does not deploy these jobs yet. Deployment workflows are introduced in a later lecture.
