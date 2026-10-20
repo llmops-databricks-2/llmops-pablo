@@ -25,3 +25,5 @@ resources:
             parameters:
               - --env
               - ${bundle.target}
+              - --config
+              - ${workspace.file_path}/project_config.yml
