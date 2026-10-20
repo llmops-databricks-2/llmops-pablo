@@ -67,6 +67,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
 - `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
   `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
+- `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`, the job version of the
+  ingestion notebook without its sample-row checks (`python scripts/lecture_ingestion.py --env dev`).
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
   development mode, the default), `acc` and `prd`. It builds the package as a wheel with `uv build`
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
@@ -74,7 +76,7 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   `hello` table of your schema in the target's catalog, such as
   `llmops_dev.pablo.hello`. It also deploys the `lecture_ingestion` job
   (`job-lecture-ingestion-pablo-dev`, `-acc`, `-prd`), which runs
-  `notebooks/1.3_lecture_data_ingestion.py` on serverless to parse the lecture files in the target's
+  `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
   course's onboarding does not deploy these jobs yet. Deployment workflows are introduced in a later lecture.
 - `pyproject.toml` and `version.txt`: the package and its version, bumped as the lectures ask.

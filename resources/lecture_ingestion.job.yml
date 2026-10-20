@@ -1,7 +1,9 @@
-# The lecture ingestion job: one serverless notebook task that installs your arxiv_curator wheel,
-# loads project_config.yml and parses the raw lecture files in the target's volume into the
+# The lecture ingestion job: one serverless Python script task that installs your arxiv_curator
+# wheel, loads project_config.yml and parses the raw lecture files in the target's volume into the
 # lectures, lecture_transcript, lecture_chat and lecture_slides tables of your schema
-# (dev: llmops_dev.pablo). It has no schedule; run it after uploading a lecture's files.
+# (dev: llmops_dev.pablo). It runs scripts/lecture_ingestion.py, the job version of
+# notebooks/1.3_lecture_data_ingestion.py without the sample-row checks.
+# It has no schedule; run it after uploading a lecture's files.
 # Only dev has lecture data so far, so a run in acc or prd fails until those volumes are filled.
 resources:
   jobs:
@@ -18,7 +20,8 @@ resources:
       tasks:
         - task_key: lecture_ingestion
           environment_key: default
-          notebook_task:
-            notebook_path: ../notebooks/1.3_lecture_data_ingestion.py
-            base_parameters:
-              env: ${bundle.target}
+          spark_python_task:
+            python_file: ../scripts/lecture_ingestion.py
+            parameters:
+              - --env
+              - ${bundle.target}
