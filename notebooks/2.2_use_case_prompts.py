@@ -12,7 +12,7 @@
 # MAGIC
 # MAGIC The lecture excerpt is **synthetic**: made-up names, in the format of the real Teams
 # MAGIC transcripts and chats, with planted cases whose right answers are known (see `EXPECTED`).
-# MAGIC Real lecture text waits until platform-side retention is confirmed (CAU-2168).
+# MAGIC Real lecture text waits until platform-side retention is confirmed.
 
 # COMMAND ----------
 

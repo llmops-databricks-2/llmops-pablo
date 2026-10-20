@@ -11,7 +11,7 @@ the course workspace was provisioned for you before you got this repo, and every
 | Your schema in development, which you manage | `llmops_dev.pablo` |
 | Your schema in acceptance, which you read | `llmops_acc.pablo` |
 | Your schema in production, which you read | `llmops_prd.pablo` |
-| Lecture files volume (dev, created for CAU-2166) | `llmops_dev.pablo.lecture_files`; acc and prd still name `arxiv_files` |
+| Lecture files volume (dev) | `llmops_dev.pablo.lecture_files`; acc and prd still name `arxiv_files` |
 | SQL warehouse id | `8d8d38f86ea6cc4a` |
 | Usage policy id | `f91fbdfb-b1c9-39a9-9d93-d132a1e63daa` |
 | MLflow experiments | Dev: `/llmops/pablo-dev`; acc: `/llmops/pablo-acc`; prd: `/llmops/pablo-prd` |

@@ -12,7 +12,7 @@
 # MAGIC model service named in `project_config.yml` (`llm_endpoint`).
 # MAGIC
 # MAGIC The prompt is synthetic on purpose: real lecture text waits until it is settled what the
-# MAGIC gateway path retains (CAU-2168).
+# MAGIC gateway path retains.
 
 # COMMAND ----------
 
