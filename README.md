@@ -67,8 +67,10 @@ suspension after five idle minutes. Creating extra branches or computes can incr
 - `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
   `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
-- `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`, the job version of the
-  ingestion notebook without its sample-row checks (`python scripts/lecture_ingestion.py --env dev`).
+- `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
+  (`python scripts/lecture_ingestion.py --env dev`). Scripts stay thin: the ingestion itself lives
+  in `src/arxiv_curator/utils/lecture_ingestion.py`, with the table schemas in
+  `src/arxiv_curator/schemas/`, so the notebook and the job run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
   development mode, the default), `acc` and `prd`. It builds the package as a wheel with `uv build`
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
