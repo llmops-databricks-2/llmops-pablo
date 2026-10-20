@@ -69,3 +69,12 @@ CLAUDE.md
 
 # Local course data (real lecture material, never committed)
 data/
+
+# MLflow Agent Tracing
+.codex/mlflow-tracing.json
+.github/hooks/mlflow-tracing.local.json
+.agents/mlflow-tracing.json
+
+# Local Claude Code settings and work-item plans
+.claude/
+proposals/
