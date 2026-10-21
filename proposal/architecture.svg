@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 860" width="1440" height="860" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Icons traced from the course kickoff deck, slide 16 -->
+    <symbol id="ic-lakeflow" viewBox="0 0 9.3 9.3"><path fill="#ff5f46" d="M4.38 9.01L5.1 8.28L4.38 7.56L4.22 7.71L4.68 8.17L0.98 8.17C0.9 8.17 0.81 8.13 0.75 8.07C0.69 8.01 0.65 7.92 0.65 7.84L0.65 6.59C0.65 6.5 0.69 6.42 0.75 6.36C0.81 6.29 0.9 6.26 0.98 6.26L2.3 6.26L2.3 6.03L0.98 6.03C0.84 6.04 0.69 6.09 0.59 6.2C0.49 6.3 0.43 6.44 0.43 6.59L0.43 7.84C0.43 7.99 0.49 8.13 0.59 8.23C0.69 8.34 0.84 8.39 0.98 8.4L4.68 8.4L4.22 8.85L4.38 9.01"/><path fill="#ff5f46" d="M0.42 0.51L0.42 1.75C0.42 1.85 0.46 1.95 0.54 2.03C0.61 2.1 0.71 2.14 0.82 2.14L2.05 2.14C2.15 2.14 2.25 2.1 2.33 2.03C2.4 1.95 2.44 1.85 2.44 1.75L2.44 1.41L3.25 1.41C3.33 1.41 3.42 1.44 3.48 1.51C3.54 1.57 3.58 1.65 3.58 1.74L3.58 3.39C3.58 3.54 3.64 3.68 3.74 3.79C3.85 3.89 3.99 3.95 4.14 3.95L5.87 3.95L5.41 4.4L5.57 4.56L6.3 3.84L5.57 3.11L5.41 3.27L5.87 3.73L4.14 3.73C4.05 3.73 3.96 3.69 3.9 3.63C3.84 3.57 3.8 3.48 3.8 3.39L3.8 1.74C3.8 1.6 3.74 1.45 3.64 1.35C3.53 1.25 3.39 1.19 3.25 1.19L2.33 1.19L2.22 1.19L2.22 1.74C2.22 1.77 2.22 1.79 2.21 1.81C2.2 1.83 2.19 1.85 2.17 1.87C2.15 1.88 2.13 1.89 2.11 1.9C2.09 1.91 2.07 1.92 2.05 1.92L0.82 1.92C0.77 1.92 0.73 1.9 0.69 1.87C0.66 1.84 0.64 1.79 0.64 1.75L0.64 0.51C0.64 0.47 0.66 0.42 0.69 0.39C0.73 0.36 0.77 0.34 0.82 0.34L2.05 0.34C2.09 0.34 2.14 0.36 2.17 0.39C2.2 0.42 2.22 0.47 2.22 0.51L2.22 0.58L1.47 1.32L1.14 0.99L0.99 1.15L1.47 1.64L2.4 0.71L2.44 0.68L2.44 0.51C2.44 0.41 2.4 0.31 2.33 0.24C2.25 0.16 2.15 0.12 2.05 0.12L0.82 0.12C0.77 0.12 0.71 0.13 0.67 0.15C0.62 0.17 0.57 0.2 0.54 0.23C0.5 0.27 0.47 0.32 0.45 0.36C0.43 0.41 0.42 0.46 0.42 0.51"/><path fill="#ff5f46" d="M7.91 4.03L7.57 3.7L7.42 3.85L7.91 4.34L8.83 3.41L8.87 3.39L8.87 3.22C8.87 3.12 8.83 3.02 8.76 2.94C8.68 2.87 8.58 2.83 8.48 2.83L7.25 2.83C7.14 2.83 7.04 2.87 6.97 2.94C6.89 3.02 6.85 3.12 6.85 3.22L6.85 4.45C6.85 4.56 6.89 4.66 6.97 4.73C7.04 4.81 7.14 4.85 7.25 4.85L7.75 4.85L7.75 5.83C7.75 5.89 7.73 5.94 7.69 5.98C7.65 6.02 7.6 6.04 7.55 6.04L3.23 6.04L3.64 5.58L3.47 5.43L2.83 6.15L3.55 6.87L3.71 6.71L3.25 6.26L7.55 6.26C7.6 6.26 7.66 6.25 7.71 6.23C7.76 6.2 7.81 6.17 7.85 6.13C7.89 6.09 7.92 6.05 7.94 5.99C7.96 5.94 7.97 5.89 7.97 5.83L7.97 4.85L8.48 4.85C8.58 4.85 8.68 4.81 8.76 4.73C8.83 4.66 8.87 4.56 8.88 4.45L8.88 4.01L8.65 4.01L8.65 4.45C8.65 4.5 8.63 4.54 8.6 4.58C8.57 4.61 8.53 4.63 8.48 4.63L7.25 4.63C7.2 4.63 7.16 4.61 7.13 4.58C7.09 4.54 7.08 4.5 7.08 4.45L7.08 3.22C7.08 3.18 7.09 3.13 7.13 3.1C7.16 3.07 7.2 3.05 7.25 3.05L8.48 3.05C8.5 3.05 8.52 3.05 8.55 3.06C8.57 3.07 8.59 3.08 8.6 3.1C8.62 3.12 8.63 3.13 8.64 3.16C8.65 3.18 8.65 3.2 8.65 3.22L8.65 3.28L7.91 4.03"/><path fill="#ff5f46" d="M6.73 8.48L6.4 8.14L6.24 8.3L6.73 8.79L7.65 7.87L7.7 7.85L7.7 7.67C7.7 7.56 7.66 7.46 7.58 7.39C7.51 7.31 7.41 7.27 7.3 7.27L6.07 7.27C5.97 7.27 5.87 7.31 5.79 7.39C5.72 7.46 5.68 7.56 5.68 7.67L5.68 8.9C5.68 9 5.72 9.11 5.79 9.18C5.87 9.25 5.97 9.3 6.07 9.3L7.3 9.3C7.41 9.3 7.51 9.25 7.58 9.18C7.66 9.11 7.7 9 7.7 8.9L7.7 8.45L7.47 8.45L7.47 8.9C7.47 8.95 7.46 8.99 7.42 9.02C7.39 9.05 7.35 9.07 7.3 9.07L6.07 9.07C6.03 9.07 5.98 9.05 5.95 9.02C5.92 8.99 5.9 8.95 5.9 8.9L5.9 7.67C5.9 7.65 5.9 7.62 5.91 7.6C5.92 7.58 5.93 7.56 5.95 7.55C5.97 7.53 5.98 7.52 6.01 7.51C6.03 7.5 6.05 7.5 6.07 7.5L7.3 7.5C7.32 7.5 7.35 7.5 7.37 7.51C7.39 7.52 7.41 7.53 7.42 7.55C7.44 7.56 7.45 7.58 7.46 7.6C7.47 7.62 7.47 7.65 7.47 7.67L7.47 7.73L6.73 8.48"/><path fill="#ff5f46" d="M1.25 3.92L1.09 4.08L1.58 4.57L2.55 3.59L2.51 3.51C2.37 3.29 2.15 3.12 1.9 3.04C1.65 2.95 1.37 2.97 1.13 3.08C0.88 3.18 0.69 3.37 0.57 3.61C0.46 3.85 0.43 4.13 0.51 4.39C0.58 4.64 0.74 4.86 0.96 5.01C1.19 5.16 1.45 5.22 1.72 5.18C1.98 5.14 2.22 5.01 2.4 4.81C2.57 4.61 2.67 4.35 2.67 4.09L2.45 4.09C2.45 4.3 2.37 4.5 2.23 4.66C2.1 4.82 1.91 4.92 1.7 4.95C1.5 4.98 1.29 4.94 1.11 4.83C0.93 4.72 0.8 4.55 0.73 4.36C0.67 4.16 0.67 3.94 0.75 3.75C0.83 3.55 0.98 3.4 1.16 3.3C1.35 3.2 1.56 3.18 1.77 3.22C1.97 3.27 2.15 3.39 2.27 3.56L1.58 4.25L1.25 3.92"/><path fill="#ff5f46" d="M5.54 0.97L5.38 1.12L5.87 1.61L6.85 0.63L6.81 0.56C6.67 0.33 6.45 0.16 6.2 0.08C5.94 0 5.67 0.01 5.42 0.12C5.18 0.23 4.98 0.42 4.87 0.66C4.75 0.9 4.73 1.17 4.8 1.43C4.87 1.69 5.04 1.91 5.26 2.06C5.48 2.2 5.75 2.26 6.01 2.23C6.28 2.19 6.52 2.06 6.7 1.86C6.87 1.66 6.97 1.4 6.97 1.13L6.74 1.13C6.74 1.34 6.67 1.54 6.54 1.7C6.4 1.86 6.21 1.97 6.01 2C5.8 2.04 5.59 2 5.41 1.89C5.23 1.78 5.09 1.61 5.03 1.41C4.96 1.22 4.97 1 5.04 0.81C5.12 0.61 5.27 0.45 5.45 0.35C5.64 0.26 5.85 0.23 6.06 0.27C6.26 0.32 6.44 0.44 6.57 0.6L5.87 1.3L5.54 0.97"/></symbol>
+    <symbol id="ic-serving" viewBox="0 0 10.44 10.44"><path fill="#ff3621" d="M2.24 3.29C2.59 1.93 3.82 0.92 5.29 0.92C6.97 0.92 8.35 2.25 8.42 3.92C9.36 4.04 10.13 4.68 10.44 5.55L9.33 5.55C9.07 5.15 8.61 4.89 8.1 4.89L7.93 4.89C7.66 4.89 7.44 4.66 7.44 4.39L7.44 4.06C7.44 2.87 6.47 1.91 5.29 1.91C4.19 1.91 3.29 2.73 3.16 3.79C3.13 4.03 2.93 4.21 2.69 4.23C1.74 4.29 0.99 5.08 0.99 6.04C0.99 6.99 1.72 7.77 2.64 7.86L2.64 8.86C2.6 8.86 2.56 8.85 2.53 8.84C1.11 8.7 0 7.5 0 6.04C0 4.69 0.96 3.55 2.24 3.29"/><path fill="#ff3621" fill-rule="evenodd" d="M5.29 4.23C6.11 4.23 6.78 4.89 6.78 5.71C6.78 5.94 6.72 6.16 6.63 6.36L6.96 6.69C7.15 6.59 7.37 6.54 7.6 6.54C8.42 6.54 9.09 7.21 9.09 8.03C9.09 8.85 8.42 9.52 7.6 9.52C6.78 9.52 6.11 8.85 6.11 8.03C6.11 7.8 6.17 7.58 6.26 7.39L5.93 7.06C5.74 7.15 5.52 7.2 5.29 7.2C4.47 7.2 3.8 6.54 3.8 5.71C3.8 4.89 4.47 4.23 5.29 4.23M5.78 5.71C5.78 5.44 5.56 5.22 5.29 5.22C5.01 5.22 4.79 5.44 4.79 5.71C4.79 5.99 5.01 6.21 5.29 6.21C5.56 6.21 5.78 5.99 5.78 5.71M8.1 8.03C8.1 7.75 7.88 7.53 7.6 7.53C7.33 7.53 7.11 7.75 7.11 8.03C7.11 8.3 7.33 8.53 7.6 8.53C7.88 8.53 8.1 8.3 8.1 8.03"/></symbol>
+    <symbol id="ic-app" viewBox="0 0 9.26 9.26"><path fill="#ff3621" d="M1.16 0C0.52 0 0 0.52 0 1.16C0 1.8 0.52 2.32 1.16 2.32C1.8 2.32 2.32 1.8 2.32 1.16C2.32 0.52 1.8 0 1.16 0"/><path fill="#ff3621" d="M4.63 0C3.99 0 3.47 0.52 3.47 1.16C3.47 1.8 3.99 2.32 4.63 2.32C5.27 2.32 5.79 1.8 5.79 1.16C5.79 0.52 5.27 0 4.63 0"/><path fill="#ff3621" d="M8.1 0C7.46 0 6.94 0.52 6.94 1.16C6.94 1.8 7.46 2.32 8.1 2.32C8.74 2.32 9.26 1.8 9.26 1.16C9.26 0.52 8.74 0 8.1 0"/><path fill="#ff3621" d="M1.16 3.47C0.52 3.47 0 3.99 0 4.63C0 5.27 0.52 5.79 1.16 5.79C1.8 5.79 2.32 5.27 2.32 4.63C2.32 3.99 1.8 3.47 1.16 3.47"/><path fill="#ff3621" d="M4.63 3.47C3.99 3.47 3.47 3.99 3.47 4.63C3.47 5.27 3.99 5.79 4.63 5.79C5.27 5.79 5.79 5.27 5.79 4.63C5.79 3.99 5.27 3.47 4.63 3.47"/><path fill="#ff3621" d="M8.1 3.47C7.46 3.47 6.94 3.99 6.94 4.63C6.94 5.27 7.46 5.79 8.1 5.79C8.74 5.79 9.26 5.27 9.26 4.63C9.26 3.99 8.74 3.47 8.1 3.47"/><path fill="#ff3621" d="M1.16 6.95C0.52 6.95 0 7.46 0 8.1C0 8.74 0.52 9.26 1.16 9.26C1.8 9.26 2.32 8.74 2.32 8.1C2.32 7.46 1.8 6.95 1.16 6.95"/><path fill="#ff3621" d="M4.63 6.95C3.99 6.95 3.47 7.46 3.47 8.1C3.47 8.74 3.99 9.26 4.63 9.26C5.27 9.26 5.79 8.74 5.79 8.1C5.79 7.46 5.27 6.95 4.63 6.95"/><path fill="#ff3621" d="M8.1 6.95C7.46 6.95 6.94 7.46 6.94 8.1C6.94 8.74 7.46 9.26 8.1 9.26C8.74 9.26 9.26 8.74 9.26 8.1C9.26 7.46 8.74 6.95 8.1 6.95"/></symbol>
+    <symbol id="ic-gateway" viewBox="0 0 8.54 8.54"><path fill="#ff5f46" d="M3.6 4.29L3.44 4.45L4.08 5.1L5.72 3.46L5.67 3.38C5.48 3.09 5.19 2.87 4.86 2.74C4.54 2.62 4.18 2.6 3.84 2.69C3.5 2.78 3.19 2.98 2.97 3.25C2.75 3.52 2.62 3.86 2.59 4.21L1.62 4.21C1.41 4.2 1.2 4.24 1 4.32C0.81 4.4 0.63 4.51 0.48 4.66C0.33 4.81 0.21 4.98 0.12 5.18C0.04 5.37 0 5.58 0 5.79C0 6 0.04 6.21 0.12 6.41C0.21 6.6 0.33 6.78 0.48 6.93C0.63 7.07 0.81 7.19 1 7.27C1.2 7.35 1.41 7.38 1.62 7.38L8.11 7.38L7.58 7.9L7.74 8.06L8.54 7.27L7.74 6.47L7.58 6.62L8.11 7.15L1.62 7.15C1.44 7.15 1.26 7.12 1.09 7.05C0.92 6.99 0.77 6.89 0.64 6.76C0.51 6.63 0.4 6.48 0.33 6.32C0.26 6.15 0.23 5.97 0.23 5.79C0.23 5.61 0.26 5.43 0.33 5.26C0.4 5.09 0.51 4.94 0.64 4.81C0.77 4.69 0.92 4.59 1.09 4.52C1.26 4.45 1.44 4.42 1.62 4.43L2.59 4.43C2.62 4.85 2.81 5.26 3.12 5.55C3.43 5.84 3.84 6 4.27 6C4.7 6 5.11 5.84 5.42 5.55C5.73 5.26 5.92 4.85 5.95 4.43L6.91 4.43C7.12 4.43 7.33 4.39 7.52 4.32C7.72 4.24 7.9 4.12 8.05 3.98C8.2 3.83 8.32 3.65 8.4 3.46C8.48 3.26 8.53 3.05 8.53 2.84C8.53 2.63 8.48 2.42 8.4 2.23C8.32 2.03 8.2 1.86 8.05 1.71C7.9 1.56 7.72 1.45 7.52 1.37C7.33 1.29 7.12 1.25 6.91 1.26L1.79 1.26C1.76 1.03 1.65 0.83 1.48 0.69C1.3 0.55 1.08 0.47 0.86 0.49C0.64 0.5 0.43 0.6 0.27 0.77C0.12 0.93 0.03 1.14 0.03 1.37C0.03 1.59 0.12 1.81 0.27 1.97C0.43 2.14 0.64 2.24 0.86 2.25C1.08 2.26 1.3 2.19 1.48 2.05C1.65 1.91 1.76 1.7 1.79 1.48L6.91 1.48C7.09 1.48 7.27 1.51 7.44 1.58C7.61 1.64 7.76 1.74 7.89 1.87C8.02 2 8.12 2.15 8.19 2.31C8.26 2.48 8.3 2.66 8.3 2.84C8.3 3.02 8.26 3.2 8.19 3.37C8.12 3.54 8.02 3.69 7.89 3.82C7.76 3.94 7.61 4.04 7.44 4.11C7.27 4.17 7.09 4.21 6.91 4.2L5.73 4.2L5.73 4.31C5.73 4.66 5.61 4.99 5.38 5.26C5.16 5.52 4.85 5.7 4.51 5.75C4.17 5.81 3.82 5.74 3.52 5.57C3.23 5.39 3 5.11 2.89 4.78C2.78 4.46 2.79 4.1 2.92 3.78C3.04 3.46 3.28 3.19 3.59 3.03C3.89 2.87 4.24 2.82 4.58 2.89C4.92 2.96 5.22 3.15 5.43 3.43L4.08 4.78L3.6 4.29M0.91 2.03C0.78 2.03 0.66 1.99 0.55 1.92C0.44 1.85 0.36 1.74 0.31 1.62C0.26 1.5 0.24 1.37 0.27 1.24C0.3 1.12 0.36 1 0.45 0.91C0.54 0.81 0.66 0.75 0.79 0.73C0.91 0.7 1.05 0.71 1.17 0.76C1.29 0.81 1.39 0.9 1.46 1.01C1.53 1.11 1.57 1.24 1.57 1.37C1.57 1.55 1.5 1.71 1.38 1.84C1.26 1.96 1.09 2.03 0.91 2.03"/></symbol>
+    <symbol id="ic-lakebase" viewBox="0 0 8.43 8.43"><path fill="#fabfba" d="M4.22 5.28C3.59 5.07 2.87 4.95 2.11 4.95C1.34 4.95 0.63 5.07 0 5.28L0 3.11L8.43 3.11L8.43 5.28C7.81 5.49 7.09 5.6 6.33 5.6C5.56 5.6 4.84 5.49 4.22 5.28"/><path fill="#ff5f46" d="M2.12 5.87C2.83 5.87 3.51 5.97 4.1 6.14L4.34 6.21C4.93 6.39 5.6 6.48 6.32 6.48C7.08 6.48 7.79 6.37 8.41 6.18L8.43 6.18L8.43 8.43L0 8.43L0 6.18L0.02 6.18C0.64 5.98 1.36 5.87 2.12 5.87"/><path fill="#fabfba" d="M0 0H8.43V2.26H0Z"/></symbol>
+    <symbol id="ic-mlflow" viewBox="0 0 9.33 9.33"><path fill="#ff5f46" d="M8.79 2.5L8.59 2.6C8.93 3.24 9.1 3.94 9.1 4.67C9.1 7.11 7.11 9.11 4.66 9.11C2.22 9.11 0.23 7.11 0.23 4.67C0.23 2.22 2.22 0.23 4.66 0.23C5.69 0.23 6.66 0.57 7.45 1.21L6.83 1.21L6.83 1.44L7.87 1.44L7.87 0.4L7.64 0.4L7.64 1.08C6.81 0.38 5.76 0 4.67 0C2.1 0 0 2.09 0 4.67C0 7.24 2.1 9.33 4.67 9.33C7.24 9.33 9.33 7.24 9.33 4.67C9.33 3.9 9.15 3.17 8.79 2.5"/><path fill="#ff5f46" d="M7.3 2.44L4.84 2.44L4.31 3C4.19 2.91 4.05 2.86 3.89 2.86C3.55 2.86 3.27 3.11 3.21 3.43L1.68 3.43C2.16 2.27 3.31 1.47 4.58 1.44L4.61 1.44C4.62 1.44 4.63 1.44 4.64 1.44L5.88 1.44L5.88 1.21L4.86 1.21L4.72 1.21C4.68 1.21 4.64 1.21 4.61 1.21L4.58 1.21C3.16 1.25 1.89 2.17 1.41 3.51L1.36 3.66L3.21 3.66C3.27 3.99 3.55 4.24 3.89 4.24C4.27 4.24 4.58 3.93 4.58 3.55C4.58 3.41 4.54 3.28 4.46 3.17L4.94 2.66L7.19 2.66C7.45 2.98 7.64 3.34 7.75 3.73L5.76 3.73L4.63 4.87L3.29 4.87C3.24 4.54 2.95 4.29 2.61 4.29C2.27 4.29 1.99 4.54 1.93 4.87L1.22 4.87L1.23 4.99C1.39 6.77 2.87 8.12 4.66 8.12C6.32 8.12 7.74 6.94 8.05 5.32L8.08 5.19L7.16 5.19C7.1 4.86 6.82 4.61 6.48 4.61C6.1 4.61 5.79 4.92 5.79 5.3C5.79 5.45 5.84 5.59 5.92 5.7L5.23 6.39L4.78 6.39C4.73 6.06 4.45 5.81 4.11 5.81C3.73 5.81 3.42 6.12 3.42 6.5C3.42 6.88 3.73 7.19 4.11 7.19C4.45 7.19 4.73 6.94 4.78 6.61L5.33 6.61L6.08 5.86C6.19 5.94 6.33 5.99 6.48 5.99C6.82 5.99 7.1 5.74 7.16 5.41L7.8 5.41C7.46 6.86 6.16 7.89 4.66 7.89C3.03 7.89 1.68 6.7 1.47 5.09L1.93 5.09C1.99 5.42 2.27 5.67 2.61 5.67C2.95 5.67 3.24 5.42 3.29 5.09L4.72 5.09L5.85 3.96L8.04 3.96L8.01 3.82C7.88 3.32 7.66 2.87 7.33 2.48L7.3 2.44M3.89 4.01C3.64 4.01 3.43 3.8 3.43 3.55C3.43 3.29 3.64 3.08 3.89 3.08C4.15 3.08 4.35 3.29 4.35 3.55C4.36 3.8 4.15 4.01 3.89 4.01M4.1 6.97C3.85 6.97 3.64 6.76 3.64 6.5C3.64 6.25 3.85 6.04 4.1 6.04C4.36 6.04 4.57 6.25 4.57 6.5C4.57 6.76 4.36 6.97 4.1 6.97M6.48 5.76C6.22 5.76 6.02 5.56 6.02 5.3C6.02 5.05 6.22 4.84 6.48 4.84C6.73 4.84 6.94 5.05 6.94 5.3C6.94 5.56 6.73 5.76 6.48 5.76M2.61 5.44C2.36 5.44 2.15 5.23 2.15 4.98C2.15 4.72 2.36 4.51 2.61 4.51C2.87 4.51 3.07 4.72 3.07 4.98C3.07 5.23 2.87 5.44 2.61 5.44"/></symbol>
+    <symbol id="ic-aifn" viewBox="0 0 8.71 8.71"><path fill="#ff5f46" fill-rule="evenodd" d="M3.63 0.96L5.07 0.96L5.28 1.74C5.38 1.78 5.48 1.82 5.57 1.86L6.27 1.46L7.29 2.48L6.88 3.18C6.93 3.27 6.97 3.37 7.01 3.47L7.78 3.68L7.78 5.12L7.01 5.33C6.97 5.42 6.93 5.52 6.89 5.62L7.29 6.32L6.27 7.34L5.52 6.9L5.63 6.71L6.23 7.06L7.01 6.28L6.63 5.62L6.66 5.57C6.72 5.46 6.77 5.33 6.82 5.2L6.83 5.14L7.56 4.95L7.56 3.85L6.83 3.65L6.82 3.6C6.77 3.47 6.72 3.35 6.66 3.23L6.63 3.17L7.01 2.51L6.23 1.74L5.58 2.12L5.52 2.09C5.4 2.03 5.28 1.98 5.15 1.93L5.1 1.91L4.9 1.18L3.8 1.18L3.61 1.91L3.55 1.93C3.42 1.98 3.3 2.03 3.18 2.09L3.13 2.12L2.47 1.74L1.69 2.51L2.08 3.17L2.05 3.23C1.98 3.35 1.93 3.47 1.89 3.6L1.87 3.65L1.14 3.85L1.14 4.95L1.87 5.14L1.89 5.2C1.93 5.33 1.98 5.45 2.05 5.57L2.08 5.62L1.69 6.28L2.47 7.06L3.07 6.71L3.19 6.9L2.44 7.34L1.41 6.32L1.82 5.62C1.77 5.52 1.73 5.43 1.7 5.33L0.91 5.12L0.91 3.68L1.7 3.47C1.73 3.37 1.77 3.27 1.82 3.18L1.41 2.48L2.44 1.46L3.13 1.86C3.23 1.82 3.32 1.78 3.42 1.74L3.63 0.96"/><path fill="#ff5f46" fill-rule="evenodd" d="M4.01 2.85L4.01 4.07C4.01 4.26 4.17 4.43 4.38 4.42C4.56 4.42 4.72 4.25 4.72 4.04L4.72 2.85L4.87 2.9C5.48 3.11 5.92 3.69 5.92 4.37C5.92 4.84 5.72 5.25 5.4 5.53L5.4 5.53C5.22 5.69 5.11 5.92 5.11 6.16L5.11 8.66L4.88 8.66L4.88 6.16C4.88 5.85 5.03 5.56 5.25 5.37C5.52 5.12 5.69 4.77 5.69 4.37C5.69 3.84 5.39 3.38 4.94 3.17L4.94 4.04C4.94 4.36 4.7 4.64 4.38 4.65L4.38 4.65C4.05 4.66 3.78 4.39 3.78 4.07L3.78 3.17C3.34 3.38 3.03 3.84 3.03 4.37C3.03 4.76 3.2 5.12 3.48 5.37L3.48 5.37L3.48 5.37C3.7 5.57 3.84 5.85 3.84 6.16L3.84 8.66L3.62 8.66L3.62 6.16C3.62 5.92 3.51 5.7 3.33 5.53C3.01 5.24 2.81 4.83 2.81 4.37C2.81 3.69 3.25 3.11 3.86 2.9L4.01 2.85"/><path fill="#ff5f46" fill-rule="evenodd" d="M4.36 0.27C2.08 0.27 0.22 2.13 0.22 4.41C0.22 6.28 1.46 7.86 3.16 8.37L3.1 8.58C1.3 8.04 0 6.38 0 4.41C0 2 1.95 0.05 4.36 0.05C6.77 0.05 8.71 2 8.71 4.41C8.71 6.38 7.41 8.05 5.61 8.58L5.54 8.37C7.25 7.86 8.49 6.28 8.49 4.41C8.49 2.13 6.64 0.27 4.36 0.27"/></symbol>
+    <symbol id="ic-delta" viewBox="0 0 8.57 8.57"><path fill="#ff5f46" d="M4.65 0.51C4.57 0.36 4.41 0.27 4.25 0.27C4.08 0.27 3.93 0.36 3.84 0.51L0.79 5.81C0.76 5.87 0.76 5.94 0.81 5.99C0.85 6.03 0.92 6.05 0.98 6.02C1.6 5.75 2.25 5.6 2.93 5.59C3.37 5.58 3.81 5.69 4.2 5.9L4.31 5.71C3.95 5.49 3.42 5.36 2.92 5.36C2.29 5.37 1.67 5.5 1.08 5.73L4.03 0.62C4.07 0.54 4.16 0.5 4.24 0.5C4.33 0.5 4.4 0.54 4.45 0.62L8.21 6.93C8.31 7.09 8.28 7.3 8.14 7.43C7.8 7.73 7.18 8.09 6.13 8.09C5.18 8.09 4.67 7.79 4.18 7.5C3.77 7.26 3.35 7.01 2.7 6.96C1.75 6.89 0.77 7.31 0.31 7.53C0.88 6.76 1.76 6.29 2.71 6.22C3.54 6.17 3.94 6.41 4.37 6.66C4.77 6.9 5.18 7.15 5.95 7.15C6.24 7.15 6.52 7.1 6.79 7C6.91 6.96 6.97 6.83 6.93 6.72C6.92 6.71 6.91 6.69 6.91 6.68L4.46 2.51C4.42 2.44 4.34 2.4 4.26 2.4C4.18 2.4 4.1 2.44 4.06 2.51L2.88 4.58C2.82 4.7 2.85 4.83 2.96 4.9C2.98 4.91 3 4.92 3.03 4.92C3.52 5.01 3.99 5.21 4.41 5.49L4.54 5.3C4.1 5 3.6 4.79 3.08 4.7L3.08 4.69L4.26 2.61L4.27 2.61L6.73 6.79C6.49 6.88 6.22 6.92 5.96 6.92C5.25 6.92 4.88 6.7 4.49 6.47C4.04 6.2 3.6 5.93 2.7 5.99C1.36 6.07 0.38 6.95 0.05 7.51C0 7.6 0.03 7.71 0.12 7.76C0.17 7.79 0.24 7.8 0.3 7.77C0.69 7.58 1.72 7.09 2.7 7.17C3.29 7.22 3.67 7.44 4.08 7.68C4.6 7.98 5.14 8.3 6.14 8.3C7.26 8.3 7.93 7.91 8.3 7.58C8.52 7.39 8.57 7.06 8.42 6.81L4.65 0.51"/></symbol>
+    <symbol id="ic-vector" viewBox="0 0 10.55 10.55"><path fill="#ff3621" d="M5.38 2.2C5.28 2.03 5.11 1.93 4.92 1.93C4.73 1.93 4.56 2.03 4.46 2.2L3.76 3.43C3.67 3.59 3.67 3.79 3.76 3.95C3.86 4.12 4.03 4.22 4.22 4.22L5.62 4.22C5.81 4.22 5.98 4.12 6.08 3.95C6.17 3.79 6.17 3.59 6.08 3.43L5.38 2.2"/><path fill="#ff3621" d="M3.34 4.57C2.66 4.57 2.11 5.12 2.11 5.8C2.11 6.48 2.66 7.03 3.34 7.03C4.02 7.03 4.57 6.48 4.57 5.8C4.57 5.12 4.02 4.57 3.34 4.57"/><path fill="#ff3621" d="M5.27 5.1C5.27 4.8 5.51 4.57 5.8 4.57L7.2 4.57C7.49 4.57 7.73 4.8 7.73 5.1L7.73 6.5C7.73 6.79 7.49 7.03 7.2 7.03L5.8 7.03C5.51 7.03 5.27 6.79 5.27 6.5L5.27 5.1"/><path fill="#ff3621" fill-rule="evenodd" d="M0 4.92C0 2.2 2.21 0 4.92 0C7.64 0 9.84 2.2 9.84 4.92C9.84 6.09 9.43 7.16 8.75 8.01L10.54 9.8L9.8 10.55L8 8.75C7.16 9.43 6.09 9.84 4.92 9.84C2.21 9.84 0 7.64 0 4.92M4.92 1.05C2.79 1.05 1.06 2.79 1.06 4.92C1.06 7.06 2.79 8.79 4.92 8.79C7.05 8.79 8.78 7.06 8.78 4.92C8.78 2.79 7.05 1.05 4.92 1.05"/></symbol>
+    <symbol id="ic-genie" viewBox="0 0 8.89 8.89"><path fill="#ff5f46" d="M3.41 7.8C3.03 7.8 2.72 8.19 2.72 8.66L5.91 8.66C5.91 8.19 5.6 7.8 5.22 7.8L3.41 7.8"/><path fill="#fabfba" d="M8.89 3.37C8.22 4.46 7.2 5.96 6.74 6.34C6.29 6.73 5.61 7.42 4.05 7.42C2.96 7.42 2.01 6.72 1.6 5.71C1.6 5.71 1.6 5.71 1.6 5.71C1.54 5.57 1.39 5.46 1.22 5.46C1 5.46 0.82 5.64 0.82 5.86C0.82 5.91 0.83 5.96 0.85 6C0.95 6.23 1.2 6.24 1.2 6.95C1.2 7.05 1.2 6.87 1.2 6.95C0.54 6.95 0 6.41 0 5.74C0 5.08 0.54 4.54 1.2 4.54L1.37 4.54L1.37 4.54L3.28 4.54C3.42 4.54 3.56 4.6 3.65 4.71C3.8 4.91 3.92 5.09 4.01 5.24C4.09 5.38 4.34 5.38 4.42 5.24C4.51 5.09 4.62 4.91 4.76 4.72C4.85 4.6 4.99 4.54 5.14 4.54L5.85 4.54C6.89 4.54 7.46 4.04 7.75 3.68C7.9 3.5 8.12 3.37 8.36 3.37L8.89 3.37"/><path fill="#ff5f46" d="M4.22 5.11C4.22 3.77 3.15 2.68 1.83 2.67C3.15 2.67 4.22 1.58 4.22 0.24C4.22 0.24 4.22 0.24 4.22 0.24C4.22 1.58 5.3 2.67 6.62 2.67C5.3 2.67 4.22 3.76 4.22 5.11"/></symbol>
+    <symbol id="ic-dashboard" viewBox="0 0 9.26 9.26"><path fill="#ff3621" fill-rule="evenodd" d="M0 0.5C0 0.22 0.23 0 0.5 0L8.76 0C9.04 0 9.26 0.22 9.26 0.5L9.26 8.77C9.26 9.04 9.04 9.26 8.76 9.26L0.5 9.26C0.23 9.26 0 9.04 0 8.77L0 0.5M1 6.28L1 8.27L4.13 8.27L4.13 6.28L1 6.28M1 5.29L4.13 5.29L4.13 0.99L1 0.99L1 5.29M5.13 0.99L5.13 2.98L8.27 2.98L8.27 0.99L5.13 0.99M5.13 8.27L5.13 3.97L8.27 3.97L8.27 8.27L5.13 8.27"/></symbol>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a8a8a"/>
+    </marker>
+    <style>
+      .title { font-size: 34px; fill: #1f1f1f; font-weight: 500; }
+      .subtitle { font-size: 24px; fill: #6b6b6b; }
+      .h { font-size: 15px; fill: #1f1f1f; }
+      .muted { font-size: 12px; fill: #7a7a7a; }
+      .box { font-size: 13px; fill: #1f1f1f; }
+      .small { font-size: 11px; fill: #8a8a8a; }
+      .mcp { font-size: 12px; fill: #e8553e; }
+      .num { font-size: 11px; fill: #ffffff; font-weight: 600; }
+      .edge { stroke: #8a8a8a; stroke-width: 1.2; fill: none; }
+      .label { font-size: 11.5px; fill: #7a7a7a; }
+      .g-sched { fill: #eef1ee; stroke: #d3dad3; stroke-dasharray: 6 4; }
+      .g-demand { fill: #f8f3ec; stroke: #e5d8c4; stroke-dasharray: 6 4; }
+      .g-dab { fill: #f8f8f7; stroke: #dcdcdc; stroke-dasharray: 6 4; }
+      .b-sched { fill: #f2f5f2; stroke: #cfd7cf; }
+      .b-demand { fill: #fbf7f1; stroke: #e5d8c4; stroke-dasharray: 4 3; }
+      .b-store { fill: #ffffff; stroke: #d6d6d6; }
+      .b-mcp { fill: #ffffff; stroke: #e8553e; stroke-width: 1.6; }
+      .b-core { fill: #fdece6; stroke: #f0a593; stroke-width: 1.4; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="860" fill="#f6f5f2"/>
+
+  <!-- Title -->
+  <text x="60" y="66" class="title">The project we propose</text>
+  <text x="60" y="102" class="subtitle">Lecture insights assistant</text>
+  <text x="100" y="152" class="h">The lecture insights assistant</text>
+  <text x="100" y="171" class="muted">1 prepare → 2 deploy → 3 call → 4 monitor · built on the ArXiv curator architecture, lecturer-first</text>
+
+  <!-- ===== 1 Prepare data ===== -->
+  <rect x="100" y="196" width="420" height="384" rx="10" class="g-sched"/>
+  <circle cx="124" cy="218" r="9" fill="#1f1f1f"/><text x="124" y="222" text-anchor="middle" class="num">1</text>
+  <text x="158" y="223" class="h">Prepare data</text>
+  <text x="116" y="242" class="muted">Lakeflow job · runs when a lecture's files arrive, plus nightly</text>
+
+  <!-- left column: content -->
+  <rect x="116" y="262" width="180" height="52" rx="6" class="b-sched"/>
+  <text x="206" y="284" text-anchor="middle" class="box">Course materials</text>
+  <text x="206" y="301" text-anchor="middle" class="small">slides · readings · transcripts · chat</text>
+
+  <rect x="116" y="340" width="180" height="52" rx="6" class="b-sched"/>
+  <text x="216" y="362" text-anchor="middle" class="box">Parse sources</text>
+  <text x="206" y="379" text-anchor="middle" class="small">ai_parse_document (PDFs) · Python</text>
+
+  <rect x="116" y="418" width="180" height="52" rx="6" class="b-store"/>
+  <text x="216" y="440" text-anchor="middle" class="box">Content chunks</text>
+  <text x="206" y="457" text-anchor="middle" class="small">delta table, embedded</text>
+
+  <rect x="116" y="500" width="180" height="62" rx="6" class="b-mcp"/>
+  <text x="206" y="520" text-anchor="middle" class="mcp">MCP tool (UC function)</text>
+  <text x="216" y="537" text-anchor="middle" class="box">Content search</text>
+  <text x="206" y="553" text-anchor="middle" class="small">Lakebase pgvector</text>
+
+  <!-- right column: facts -->
+  <rect x="320" y="262" width="184" height="52" rx="6" class="b-sched"/>
+  <text x="412" y="284" text-anchor="middle" class="box">Syllabus</text>
+  <text x="412" y="301" text-anchor="middle" class="small">+ GitHub PRs and reviews</text>
+
+  <rect x="320" y="340" width="184" height="52" rx="6" class="b-core"/>
+  <text x="422" y="361" text-anchor="middle" class="box">Derive with ai_query</text>
+  <text x="412" y="378" text-anchor="middle" class="small">questions · answers · topics</text>
+
+  <rect x="320" y="412" width="184" height="48" rx="6" class="b-store"/>
+  <text x="422" y="432" text-anchor="middle" class="box">Course facts tables</text>
+  <text x="412" y="449" text-anchor="middle" class="small">lectures · questions · topics · PRs</text>
+
+  <rect x="320" y="482" width="184" height="52" rx="6" class="b-mcp"/>
+  <text x="412" y="503" text-anchor="middle" class="mcp">Managed MCP</text>
+  <text x="422" y="521" text-anchor="middle" class="box">Genie space</text>
+
+  <!-- prepare edges -->
+  <path d="M206 314 V338" class="edge" marker-end="url(#arrow)"/><text x="214" y="331" class="label">files</text>
+  <path d="M206 392 V416" class="edge" marker-end="url(#arrow)"/><text x="214" y="409" class="label">writes</text>
+  <path d="M206 470 V498" class="edge" marker-end="url(#arrow)"/><text x="214" y="488" class="label">embeds · indexes</text>
+  <path d="M296 366 H318" class="edge" marker-end="url(#arrow)"/><text x="299" y="359" class="label" font-size="10">text</text>
+  <path d="M412 314 V338" class="edge" marker-end="url(#arrow)"/><text x="420" y="331" class="label">raw</text>
+  <path d="M412 392 V410" class="edge" marker-end="url(#arrow)"/><text x="420" y="405" class="label">writes</text>
+  <path d="M412 460 V480" class="edge" marker-end="url(#arrow)"/><text x="420" y="474" class="label">exposes</text>
+
+  <!-- MCP tools into agent -->
+  <path d="M296 548 H534 V288" class="edge"/>
+  <path d="M504 508 H534" class="edge"/>
+  <circle cx="534" cy="548" r="2.5" fill="#8a8a8a"/>
+  <circle cx="534" cy="508" r="2.5" fill="#8a8a8a"/>
+
+  <!-- ===== 2 Deploy ===== -->
+  <rect x="100" y="604" width="420" height="116" rx="10" class="g-demand"/>
+  <circle cx="124" cy="626" r="9" fill="#1f1f1f"/><text x="124" y="630" text-anchor="middle" class="num">2</text>
+  <text x="158" y="631" class="h">Deploy the agent</text>
+  <text x="116" y="650" class="muted">Lakeflow job · on demand · dev → acc → prd</text>
+  <rect x="116" y="664" width="176" height="44" rx="6" class="b-demand"/>
+  <text x="214" y="682" text-anchor="middle" class="box">Log agent in MLflow</text>
+  <text x="204" y="698" text-anchor="middle" class="box">&amp; register in UC</text>
+  <rect x="340" y="664" width="150" height="44" rx="6" class="b-demand"/>
+  <text x="425" y="691" text-anchor="middle" class="box">Deploy</text>
+  <path d="M292 686 H338" class="edge" marker-end="url(#arrow)"/><text x="301" y="679" class="label">then</text>
+  <path d="M520 686 H558" class="edge" marker-end="url(#arrow)"/><text x="522" y="679" class="label">deploys</text>
+
+  <!-- ===== Agent ===== -->
+  <rect x="560" y="196" width="410" height="524" rx="10" class="g-dab"/>
+  <text x="600" y="223" class="h">Agent</text>
+  <text x="580" y="242" class="muted">Model serving endpoint</text>
+
+  <path d="M534 288 H618" class="edge" marker-end="url(#arrow)"/>
+  <text x="566" y="281" class="label">MCP tools</text>
+
+  <rect x="620" y="262" width="320" height="52" rx="6" class="b-store"/>
+  <text x="780" y="293" text-anchor="middle" class="box">Tools</text>
+
+  <rect x="620" y="364" width="320" height="62" rx="6" class="b-store"/>
+  <text x="790" y="386" text-anchor="middle" class="box">AI gateway · course_ops.gateway.chat</text>
+  <text x="780" y="403" text-anchor="middle" class="small">GPT-OSS-120B · embeddings: GTE Large</text>
+  <text x="780" y="417" text-anchor="middle" class="small">reasons in a loop · monthly budget</text>
+
+  <rect x="620" y="478" width="320" height="56" rx="6" class="b-store"/>
+  <text x="790" y="501" text-anchor="middle" class="box">Memory · Lakebase</text>
+  <text x="780" y="519" text-anchor="middle" class="small">lecturer preferences · what was already reviewed</text>
+
+  <rect x="620" y="600" width="320" height="52" rx="6" class="b-store"/>
+  <text x="790" y="631" text-anchor="middle" class="box">MLflow Tracing</text>
+
+  <path d="M780 316 V362" class="edge" marker-start="url(#arrow)" marker-end="url(#arrow)"/><text x="790" y="344" class="label">tool calls</text>
+  <path d="M780 428 V476" class="edge" marker-start="url(#arrow)" marker-end="url(#arrow)"/><text x="790" y="457" class="label">memory</text>
+  <path d="M880 534 V598" class="edge" marker-end="url(#arrow)"/><text x="890" y="570" class="label">traces</text>
+
+
+  <!-- ===== 4 Monitor ===== -->
+  <rect x="1010" y="196" width="390" height="346" rx="10" class="g-sched"/>
+  <circle cx="1034" cy="218" r="9" fill="#1f1f1f"/><text x="1034" y="222" text-anchor="middle" class="num">4</text>
+  <text x="1068" y="223" class="h">Monitor</text>
+  <text x="1026" y="242" class="muted">Lakeflow job · nightly</text>
+
+  <rect x="1030" y="280" width="140" height="52" rx="6" class="b-store"/>
+  <text x="1110" y="311" text-anchor="middle" class="box">Inference tables</text>
+  <rect x="1220" y="280" width="160" height="52" rx="6" class="b-store"/>
+  <text x="1310" y="302" text-anchor="middle" class="box">Synced table:</text>
+  <text x="1300" y="319" text-anchor="middle" class="box">MLflow tracing</text>
+
+  <path d="M1100 332 V356 H1300 V332" class="edge"/>
+  <path d="M1210 356 V388" class="edge" marker-end="url(#arrow)"/><text x="1218" y="376" class="label">reads</text>
+
+  <rect x="1110" y="390" width="200" height="56" rx="6" class="b-sched"/>
+  <text x="1210" y="412" text-anchor="middle" class="box">Combine sources, run evaluation</text>
+  <text x="1210" y="430" text-anchor="middle" class="small">+ lecturer feedback on digests</text>
+
+  <path d="M1210 446 V476" class="edge" marker-end="url(#arrow)"/><text x="1218" y="465" class="label">updates</text>
+  <rect x="1110" y="478" width="200" height="52" rx="6" class="b-sched"/>
+  <text x="1220" y="500" text-anchor="middle" class="box">Agent quality dashboard</text>
+  <text x="1210" y="517" text-anchor="middle" class="small">accuracy · citations · cost</text>
+
+  <!-- traces to monitor (drawn after the monitor group so it stays on top) -->
+  <path d="M940 626 H990 V258 H1300 V278" class="edge" marker-end="url(#arrow)"/>
+  <path d="M1100 258 V278" class="edge" marker-end="url(#arrow)"/>
+  <text x="946" y="618" class="label">writes</text>
+
+  <!-- ===== 3 Lecturer app ===== -->
+  <rect x="1010" y="566" width="390" height="154" rx="10" class="g-demand"/>
+  <circle cx="1034" cy="588" r="9" fill="#1f1f1f"/><text x="1034" y="592" text-anchor="middle" class="num">3</text>
+  <text x="1068" y="593" class="h">Lecturer app</text>
+  <text x="1026" y="612" class="muted">Databricks App · lecturer only</text>
+
+  <rect x="1026" y="628" width="114" height="56" rx="6" class="b-demand"/>
+  <text x="1083" y="650" text-anchor="middle" class="box">Post-lecture</text>
+  <text x="1083" y="667" text-anchor="middle" class="box">digest</text>
+  <rect x="1148" y="628" width="114" height="56" rx="6" class="b-demand"/>
+  <text x="1205" y="650" text-anchor="middle" class="box">Ask</text>
+  <text x="1205" y="667" text-anchor="middle" class="box">follow-ups</text>
+  <rect x="1270" y="628" width="114" height="56" rx="6" class="b-demand"/>
+  <text x="1327" y="650" text-anchor="middle" class="box">Syllabus</text>
+  <text x="1327" y="667" text-anchor="middle" class="box">coverage map</text>
+  <text x="1026" y="706" class="small">digest is generated automatically after each lecture</text>
+
+  <path d="M1026 656 H1000 V690 H972" class="edge" marker-end="url(#arrow)"/>
+  <text x="976" y="704" class="label">calls</text>
+
+  <!-- ===== Icons ===== -->
+  <use href="#ic-aifn" x="140" y="350" width="14" height="14"/>
+  <use href="#ic-delta" x="154" y="428" width="14" height="14"/>
+  <use href="#ic-vector" x="154" y="526" width="14" height="14"/>
+  <use href="#ic-aifn" x="342" y="350" width="14" height="14"/>
+  <use href="#ic-delta" x="345" y="420" width="14" height="14"/>
+  <use href="#ic-genie" x="369" y="510" width="14" height="14"/>
+  <use href="#ic-gateway" x="660" y="374" width="14" height="14"/>
+  <use href="#ic-lakebase" x="714" y="490" width="14" height="14"/>
+  <use href="#ic-mlflow" x="725" y="620" width="14" height="14"/>
+  <use href="#ic-mlflow" x="137" y="670" width="14" height="14"/>
+  <use href="#ic-serving" x="386" y="680" width="14" height="14"/>
+  <use href="#ic-delta" x="1045" y="300" width="14" height="14"/>
+  <use href="#ic-delta" x="1251" y="290" width="14" height="14"/>
+  <use href="#ic-dashboard" x="1130" y="488" width="14" height="14"/>
+  <use href="#ic-lakeflow" x="138" y="210" width="15" height="15"/>
+  <use href="#ic-lakeflow" x="138" y="618" width="15" height="15"/>
+  <use href="#ic-lakeflow" x="1048" y="210" width="15" height="15"/>
+  <use href="#ic-app" x="1048" y="580" width="15" height="15"/>
+  <use href="#ic-serving" x="580" y="210" width="15" height="15"/>
+
+  <!-- ===== Legend ===== -->
+  <g transform="translate(100,772)">
+    <rect x="0" y="-11" width="24" height="15" rx="3" fill="#eef1ee" stroke="#d3dad3"/>
+    <text x="32" y="1" class="label">scheduled / event-triggered</text>
+    <rect x="200" y="-11" width="24" height="15" rx="3" fill="#f8f3ec" stroke="#e5d8c4" stroke-dasharray="4 3"/>
+    <text x="232" y="1" class="label">on demand / human-operated</text>
+    <rect x="410" y="-11" width="24" height="15" rx="3" fill="#ffffff" stroke="#d6d6d6"/>
+    <text x="442" y="1" class="label">storage or platform service</text>
+    <rect x="610" y="-11" width="24" height="15" rx="3" fill="#ffffff" stroke="#e8553e" stroke-width="1.6"/>
+    <text x="642" y="1" class="label">MCP tool</text>
+    <rect x="730" y="-11" width="24" height="15" rx="3" fill="#fdece6" stroke="#f0a593"/>
+    <text x="762" y="1" class="label">LLM-derived data</text>
+    <rect x="890" y="-11" width="24" height="15" rx="3" fill="#f8f8f7" stroke="#dcdcdc" stroke-dasharray="4 3"/>
+    <text x="922" y="1" class="label">DAB resource / group</text>
+  </g>
+</svg>

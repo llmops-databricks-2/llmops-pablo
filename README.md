@@ -11,7 +11,7 @@ the course workspace was provisioned for you before you got this repo, and every
 | Your schema in development, which you manage | `llmops_dev.pablo` |
 | Your schema in acceptance, which you read | `llmops_acc.pablo` |
 | Your schema in production, which you read | `llmops_prd.pablo` |
-| Suggested volume name (create during the course) | `arxiv_files`, such as `llmops_dev.pablo.arxiv_files` |
+| Lecture files volume (dev) | `llmops_dev.pablo.lecture_files`; acc and prd still name `arxiv_files` |
 | SQL warehouse id | `8d8d38f86ea6cc4a` |
 | Usage policy id | `f91fbdfb-b1c9-39a9-9d93-d132a1e63daa` |
 | MLflow experiments | Dev: `/llmops/pablo-dev`; acc: `/llmops/pablo-acc`; prd: `/llmops/pablo-prd` |
@@ -64,13 +64,23 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   Commit it with the hooks installed (below): the first commit stops once, after the hooks have
   formatted the notebooks and fixed what ruff can, and goes through when you add their changes and
   commit again. Ruff rules are configured in `pyproject.toml`.
+- `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
+  the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
+  `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
+- `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
+  (`python scripts/lecture_ingestion.py --env dev`). Scripts stay thin: the ingestion itself lives
+  in `src/arxiv_curator/utils/lecture_ingestion.py`, with the table schemas in
+  `src/arxiv_curator/schemas/`, so the notebook and the job run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
   development mode, the default), `acc` and `prd`. It builds the package as a wheel with `uv build`
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
   `-acc`, `-prd`), one serverless notebook task that installs the wheel and writes one row to the
   `hello` table of your schema in the target's catalog, such as
-  `llmops_dev.pablo.hello`. The course's onboarding
-  does not deploy these jobs yet. Deployment workflows are introduced in a later lecture.
+  `llmops_dev.pablo.hello`. It also deploys the `lecture_insights_assistant` job
+  (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
+  `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
+  volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
+  course's onboarding does not deploy these jobs yet. Deployment workflows are introduced in a later lecture.
 - `pyproject.toml` and `version.txt`: the package and its version, bumped as the lectures ask.
 - `tests/`: your tests; `test_config.py` checks that `project_config.yml` loads.
 - `.github/workflows/ci.yml`: on every pull request and push to `main`, installs the package with

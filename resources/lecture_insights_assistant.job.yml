@@ -1,0 +1,29 @@
+# The lecture insights assistant job; later tasks join lecture_ingestion here. That first task is
+# one serverless Python script task that installs your arxiv_curator wheel, loads
+# project_config.yml and parses the raw lecture files in the target's volume into the lectures,
+# lecture_transcript, lecture_chat and lecture_slides tables of your schema (dev: llmops_dev.pablo).
+# It runs scripts/lecture_ingestion.py, the job version of notebooks/1.3_lecture_data_ingestion.py
+# without the sample-row checks. It has no schedule; run it after uploading a lecture's files.
+# Only dev has lecture data so far, so a run in acc or prd fails until those volumes are filled.
+resources:
+  jobs:
+    lecture_insights_assistant:
+      name: job-lecture-insights-assistant-pablo-${bundle.target}
+      budget_policy_id: "f91fbdfb-b1c9-39a9-9d93-d132a1e63daa"
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "6"
+            dependencies:
+              - ../dist/*.whl
+
+      tasks:
+        - task_key: lecture_ingestion
+          environment_key: default
+          spark_python_task:
+            python_file: ../scripts/lecture_ingestion.py
+            parameters:
+              - --env
+              - ${bundle.target}
+              - --config
+              - ${workspace.file_path}/project_config.yml
