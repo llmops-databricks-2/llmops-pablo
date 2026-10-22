@@ -2,7 +2,8 @@
 # reads the read-only GitHub token from the secret scope named in project_config.yml, and merges the
 # new events of the course organization's public repositories into the github_events table of your
 # schema (dev: llmops_dev.pablo). It runs scripts/github_ingestion.py at 08:00, 12:00 and 18:00
-# Amsterdam time. It is separate from the lecture job, which re-parses every PDF on each run.
+# Amsterdam time. The schedule is set to UNPAUSED explicitly, as development mode would otherwise
+# pause it in dev. It is separate from the lecture job, which re-parses every PDF on each run.
 resources:
   jobs:
     github_events:
@@ -11,6 +12,7 @@ resources:
       schedule:
         quartz_cron_expression: "0 0 8,12,18 * * ?"
         timezone_id: Europe/Amsterdam
+        pause_status: UNPAUSED
       environments:
         - environment_key: default
           spec:

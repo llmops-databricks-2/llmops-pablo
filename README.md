@@ -81,8 +81,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
   `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
-  `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time (paused in dev, as
-  development mode pauses schedules). It merges the new events of the GitHub organization's public
+  `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its
+  schedule is unpaused explicitly. It merges the new events of the GitHub organization's public
   repositories into the `github_events` table, using the read-only GitHub token in the secret scope
   that `project_config.yml` names (`pablo-github`, key `token`). The token expires: replace it with
   `databricks secrets put-secret pablo-github token`. The
