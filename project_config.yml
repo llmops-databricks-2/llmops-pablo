@@ -16,6 +16,11 @@ dev:
   embedding_endpoint: "course_ops.gateway.embed"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-dev"
+  # The GitHub organization whose events the github_events job ingests, and the secret holding
+  # your read-only GitHub token.
+  github_org: "llmops-databricks-2"
+  github_secret_scope: "pablo-github"
+  github_secret_key: "token"
   # Your provisioned Lakebase project.
   lakebase_instance: "lb-llmops-pablo"
 
@@ -28,6 +33,9 @@ acc:
   embedding_endpoint: "course_ops.gateway.embed"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-acc"
+  github_org: "llmops-databricks-2"
+  github_secret_scope: "pablo-github"
+  github_secret_key: "token"
   # Your provisioned Lakebase project for this environment.
   lakebase_instance: "lb-llmops-pablo"
 
@@ -40,5 +48,8 @@ prd:
   embedding_endpoint: "course_ops.gateway.embed"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-prd"
+  github_org: "llmops-databricks-2"
+  github_secret_scope: "pablo-github"
+  github_secret_key: "token"
   # Your provisioned Lakebase project for this environment.
   lakebase_instance: "lb-llmops-pablo"

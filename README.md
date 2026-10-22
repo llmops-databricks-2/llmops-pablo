@@ -68,9 +68,9 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
   `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
-  (`python scripts/lecture_ingestion.py --env dev`). Scripts stay thin: the ingestion itself lives
-  in `src/arxiv_curator/utils/lecture_ingestion.py`, with the table schemas in
-  `src/arxiv_curator/schemas/`, so the notebook and the job run the same code.
+  (`python scripts/lecture_ingestion.py --env dev`) and `github_ingestion.py`. Scripts stay thin:
+  the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
+  `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
   development mode, the default), `acc` and `prd`. It builds the package as a wheel with `uv build`
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
@@ -80,6 +80,12 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
+  `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
+  `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time (paused in dev, as
+  development mode pauses schedules). It merges the new events of the GitHub organization's public
+  repositories into the `github_events` table, using the read-only GitHub token in the secret scope
+  that `project_config.yml` names (`pablo-github`, key `token`). The token expires: replace it with
+  `databricks secrets put-secret pablo-github token`. The
   course's onboarding does not deploy these jobs yet. Deployment workflows are introduced in a later lecture.
 - `pyproject.toml` and `version.txt`: the package and its version, bumped as the lectures ask.
 - `tests/`: your tests; `test_config.py` checks that `project_config.yml` loads.

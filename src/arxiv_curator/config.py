@@ -18,6 +18,9 @@ class ProjectConfig(BaseModel):
     experiment_path: str = Field(..., description="MLflow experiment path for this environment")
     warehouse_id: str = Field(..., description="Warehouse ID")
     genie_space_id: str | None = Field(None, description="Genie space ID for MCP integration")
+    github_org: str = Field(..., description="GitHub organization whose events are ingested")
+    github_secret_scope: str = Field(..., description="Databricks secret scope holding the GitHub token")
+    github_secret_key: str = Field(..., description="Key of the GitHub token in the secret scope")
     system_prompt: str = Field(
         default="You are a helpful AI assistant that helps users find and understand research papers.",
         description="System prompt for the agent",
