@@ -142,6 +142,7 @@ dependencies = [
     { name = "pyarrow" },
     { name = "pydantic" },
     { name = "python-dotenv" },
+    { name = "requests" },
 ]
 
 [package.optional-dependencies]
@@ -183,6 +184,7 @@ requires-dist = [
     { name = "pydantic", specifier = "==2.10.6" },
     { name = "pytest", marker = "extra == 'ci'", specifier = ">=8.3.4,<9" },
     { name = "python-dotenv", specifier = "==1.2.1" },
+    { name = "requests", specifier = "==2.32.5" },
 ]
 provides-extras = ["dev", "ci"]
 
