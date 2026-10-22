@@ -1,5 +1,6 @@
 # Project configuration for the LLMOps course, filled in for you at onboarding.
-# Resources are provisioned at onboarding except the volume, which you create during the course.
+# Resources are provisioned at onboarding except the volume, which the bundle defines
+# (resources/lecture_files.volume.yml).
 
 # Your usage policy: set it on every serverless job, endpoint and app you create.
 usage_policy_id: "f91fbdfb-b1c9-39a9-9d93-d132a1e63daa"
@@ -28,7 +29,7 @@ dev:
 acc:
   catalog: "llmops_acc"
   schema: "pablo"
-  volume: "arxiv_files"
+  volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
   embedding_endpoint: "course_ops.gateway.embed"
   warehouse_id: "8d8d38f86ea6cc4a"
@@ -43,7 +44,7 @@ acc:
 prd:
   catalog: "llmops_prd"
   schema: "pablo"
-  volume: "arxiv_files"
+  volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
   embedding_endpoint: "course_ops.gateway.embed"
   warehouse_id: "8d8d38f86ea6cc4a"

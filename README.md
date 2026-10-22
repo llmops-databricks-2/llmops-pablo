@@ -11,7 +11,7 @@ the course workspace was provisioned for you before you got this repo, and every
 | Your schema in development, which you manage | `llmops_dev.pablo` |
 | Your schema in acceptance, which you read | `llmops_acc.pablo` |
 | Your schema in production, which you read | `llmops_prd.pablo` |
-| Lecture files volume (dev) | `llmops_dev.pablo.lecture_files`; acc and prd still name `arxiv_files` |
+| Lecture files volume | `llmops_dev.pablo.lecture_files`, defined in the bundle for every target (acc and prd get theirs when those targets are deployed) |
 | SQL warehouse id | `8d8d38f86ea6cc4a` |
 | Usage policy id | `f91fbdfb-b1c9-39a9-9d93-d132a1e63daa` |
 | MLflow experiments | Dev: `/llmops/pablo-dev`; acc: `/llmops/pablo-acc`; prd: `/llmops/pablo-prd` |
@@ -76,7 +76,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
   `-acc`, `-prd`), one serverless notebook task that installs the wheel and writes one row to the
   `hello` table of your schema in the target's catalog, such as
-  `llmops_dev.pablo.hello`. It also deploys the `lecture_insights_assistant` job
+  `llmops_dev.pablo.hello`. It defines the `lecture_files` volume in each target's schema, protected
+  from `bundle destroy` with `prevent_destroy`. It also deploys the `lecture_insights_assistant` job
   (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The

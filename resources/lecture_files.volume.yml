@@ -1,0 +1,15 @@
+# The lecture files volume: a managed Unity Catalog volume in your schema of the target's catalog
+# (dev: llmops_dev.pablo.lecture_files), where the raw lecture files are uploaded under
+# raw/<lecture_id>/ for the lecture job to parse. The dev volume was created by hand first and is
+# bound to this definition. prevent_destroy makes `bundle destroy` refuse to delete it, as deleting
+# a managed volume deletes its files.
+resources:
+  volumes:
+    lecture_files:
+      catalog_name: llmops_${bundle.target}
+      schema_name: pablo
+      name: lecture_files
+      volume_type: MANAGED
+      comment: Raw lecture material (slides, transcripts, chats) for the lecture assistant.
+      lifecycle:
+        prevent_destroy: true
