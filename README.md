@@ -66,9 +66,11 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   commit again. Ruff rules are configured in `pyproject.toml`.
 - `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
-  `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
+  `lecture_slides` tables, and `3.1_lecture_chunks_inspection.py`, which checks those tables and
+  `lecture_chunks` for counts, sizes, and empty or duplicate chunks. Like the lecture folders, they
+  find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
-  (`python scripts/lecture_ingestion.py --env dev`) and `github_ingestion.py`. Scripts stay thin:
+  (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py` and `github_ingestion.py`. Scripts stay thin:
   the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
   `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
@@ -80,7 +82,10 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   from `bundle destroy` with `prevent_destroy`. It also deploys the `lecture_insights_assistant` job
   (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
-  volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
+  volume into the lecture tables. Its `lecture_chunking` task then runs `scripts/lecture_chunking.py`,
+  which splits `lecture_transcript` into windows of up to 300 words and `lecture_slides` into one
+  chunk per page, into `lecture_chunks`, with change data feed on for a Lakebase synced table.
+  The job has no schedule, and only dev has lecture data so far. The
   `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
   `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its
   schedule is unpaused explicitly. It merges the new events of the GitHub organization's public

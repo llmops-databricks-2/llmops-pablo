@@ -1,4 +1,4 @@
-"""Spark schemas of the lecture tables written by the ingestion.
+"""Spark schemas of the lecture tables written by the ingestion and the chunking.
 
 `lecture_slides` has no schema here: its columns come from the `ai_parse_document` query.
 Every table also gets an `ingested_at` timestamp when it is written.
@@ -55,3 +55,18 @@ TABLE_SCHEMAS = {
     "lecture_transcript": LECTURE_TRANSCRIPT,
     "lecture_chat": LECTURE_CHAT,
 }
+
+# The chunking's output, built by `arxiv_curator.utils.lecture_chunking`.
+LECTURE_CHUNKS = StructType(
+    [
+        StructField("chunk_id", StringType(), False),
+        StructField("lecture_id", StringType(), False),
+        StructField("source", StringType(), False),
+        StructField("text", StringType(), False),
+        StructField("word_count", IntegerType(), False),
+        StructField("page", IntegerType(), True),
+        StructField("start_offset_seconds", IntegerType(), True),
+        StructField("end_offset_seconds", IntegerType(), True),
+        StructField("source_path", StringType(), False),
+    ]
+)
