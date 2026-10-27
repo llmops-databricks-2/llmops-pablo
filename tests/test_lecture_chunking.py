@@ -104,3 +104,12 @@ def test_sentence_windows_carry_the_last_sentence() -> None:
     chunks = chunk_transcript("l1", turns, max_words=7, split=split_sentences)
     assert [c["text"] for c in chunks] == ["Alpha one two. Beta three four.", "Beta three four.\nGamma five six."]
     assert (chunks[1]["start_offset_seconds"], chunks[1]["end_offset_seconds"]) == (0, 30)
+
+
+def test_chunk_ids_are_stable_across_reruns() -> None:
+    """The same turns give the same chunk ids, whatever order they arrive in, so the sync key holds."""
+    turns = [turn(n, n * 10, 40 + n * 7) for n in range(1, 30)]
+    first = [c["chunk_id"] for c in chunk_transcript("l1", turns, split=split_sentences)]
+    again = [c["chunk_id"] for c in chunk_transcript("l1", list(reversed(turns)), split=split_sentences)]
+    assert first == again
+    assert len(set(first)) == len(first)

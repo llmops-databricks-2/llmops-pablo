@@ -39,9 +39,10 @@ The `databricks-openai` package is not included in this repo’s dependencies. T
 are available through the installed `openai` client with the workspace base URL
 `/ai-gateway/mlflow/v1` and Databricks authentication.
 
-`embedding_endpoint` is a gateway model service despite the existing field name. Generate
-vectors through its embeddings API before storing them in pgvector. It is not a managed
-Vector Search index’s `embedding_model_endpoint_name`.
+`embedding_endpoint` is the `databricks-gte-large-en` serving endpoint, not a gateway model service:
+`ai_query` cannot call custom gateway model services yet. The chunking job embeds every chunk with it
+(1,024 floats), and queries must be embedded with the same endpoint before they are searched with
+pgvector in Lakebase.
 
 ## Lakebase
 
@@ -86,7 +87,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables. Its `lecture_chunking` task then runs `scripts/lecture_chunking.py`,
   which packs the sentences of `lecture_transcript` into windows of up to 300 words and makes each page
-  of `lecture_slides` one chunk, into `lecture_chunks`, with change data feed on for a Lakebase synced table.
+  of `lecture_slides` one chunk, embeds each chunk with `embedding_endpoint`, and writes them to
+  `lecture_chunks`, with change data feed on for a Lakebase synced table.
   The job has no schedule, and only dev has lecture data so far. The
   `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
   `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its

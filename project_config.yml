@@ -14,7 +14,8 @@ dev:
   schema: "pablo"
   volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
-  embedding_endpoint: "course_ops.gateway.embed"
+  # ai_query cannot call custom AI Gateway model services yet, so embeddings use the serving endpoint.
+  embedding_endpoint: "databricks-gte-large-en"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-dev"
   # The GitHub organization whose events the github_events job ingests, and the secret holding
@@ -31,7 +32,8 @@ acc:
   schema: "pablo"
   volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
-  embedding_endpoint: "course_ops.gateway.embed"
+  # ai_query cannot call custom AI Gateway model services yet, so embeddings use the serving endpoint.
+  embedding_endpoint: "databricks-gte-large-en"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-acc"
   github_org: "llmops-databricks-2"
@@ -46,7 +48,8 @@ prd:
   schema: "pablo"
   volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
-  embedding_endpoint: "course_ops.gateway.embed"
+  # ai_query cannot call custom AI Gateway model services yet, so embeddings use the serving endpoint.
+  embedding_endpoint: "databricks-gte-large-en"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-prd"
   github_org: "llmops-databricks-2"

@@ -56,7 +56,8 @@ TABLE_SCHEMAS = {
     "lecture_chat": LECTURE_CHAT,
 }
 
-# The chunking's output, built by `arxiv_curator.utils.lecture_chunking`.
+# The chunk rows built by `arxiv_curator.utils.lecture_chunking`, which adds `embedding` (ARRAY<FLOAT>)
+# and `ingested_at` before writing `lecture_chunks`.
 LECTURE_CHUNKS = StructType(
     [
         StructField("chunk_id", StringType(), False),

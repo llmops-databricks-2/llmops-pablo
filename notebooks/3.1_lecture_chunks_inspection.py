@@ -7,13 +7,13 @@
 # MAGIC # Lecture chunks inspection
 # MAGIC
 # MAGIC Reads the tables that the `lecture_insights_assistant` job writes to your schema and checks
-# MAGIC them before the chunks are embedded and synced to Lakebase:
+# MAGIC them before the chunks are synced to Lakebase:
 # MAGIC
 # MAGIC | Table | One row per | Written by |
 # MAGIC |---|---|---|
 # MAGIC | `lecture_transcript` | speaker turn | `lecture_ingestion` task |
 # MAGIC | `lecture_slides` | PDF page (slides and materials) | `lecture_ingestion` task |
-# MAGIC | `lecture_chunks` | chunk: a transcript window of up to 300 words, or one page | `lecture_chunking` task |
+# MAGIC | `lecture_chunks` | chunk: up to 300 words of transcript sentences, or one page, with its embedding | `lecture_chunking` task |
 # MAGIC
 # MAGIC It writes nothing. Run the job first (`databricks bundle run lecture_insights_assistant`).
 
@@ -60,7 +60,7 @@ for table in tables.values():
     df = spark.table(table)
     logger.info(f"{table}: {df.count()} rows")
     df.printSchema()
-    df.drop("source_path", "ingested_at").show(5, truncate=80)
+    df.drop("source_path", "ingested_at", "embedding").show(5, truncate=80)
 
 # COMMAND ----------
 # Chunks and words per lecture and source.
@@ -96,6 +96,18 @@ dup_text = (
 )
 logger.info(f"Texts stored more than once: {dup_text.count()}")
 dup_text.select("copies", "chunk_ids", F.substring("text", 1, 80).alias("text")).show(truncate=False)
+
+# COMMAND ----------
+# Embeddings: every chunk needs a 1,024-float vector for the Lakebase vector(1024) column, and change data
+# feed must be on for the synced table to follow the table.
+
+bad_vectors = chunks.where(F.col("embedding").isNull() | (F.size("embedding") != 1024))
+logger.info(f"Chunks without a 1,024-float embedding: {bad_vectors.count()}")
+bad_vectors.select("chunk_id", F.size("embedding").alias("size")).show(truncate=False)
+chunks.select(F.min(F.size("embedding")).alias("min_size"), F.max(F.size("embedding")).alias("max_size")).show()
+
+properties = {r.key: r.value for r in spark.sql(f"SHOW TBLPROPERTIES {tables['lecture_chunks']}").collect()}
+logger.info(f"Change data feed: {properties.get('delta.enableChangeDataFeed', 'false')}")
 
 # COMMAND ----------
 
