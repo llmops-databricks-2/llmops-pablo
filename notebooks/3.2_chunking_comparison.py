@@ -37,6 +37,7 @@
 # COMMAND ----------
 
 from collections import defaultdict
+from difflib import SequenceMatcher
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -165,6 +166,10 @@ for name in strategies:
 # MAGIC `ai_parse_document` gives a figure without text an empty string as content. `lecture_slides` now falls
 # MAGIC back to the figure's description, so every such description should appear in its page's text. This
 # MAGIC cell parses lecture-2's slides again, which is billable.
+# MAGIC
+# MAGIC A model writes the descriptions, so a new parse can word them differently from the job's parse. Each
+# MAGIC description is therefore matched to the most similar line of its page, not looked up exactly. Before
+# MAGIC the fix that line was empty, which scores 0.
 
 # COMMAND ----------
 
@@ -183,12 +188,18 @@ figures = (
     .where((F.col("type") == "figure") & (F.trim(F.col("content")) == "") & F.col("description").isNotNull())
     .collect()
 )
-page_text = {r.page: r.text for r in slides if r.lecture_id == "lecture-2" and r.kind == "slides"}
-found = [f for f in figures if f.description in page_text.get(f.page, "")]
-logger.info(f"lecture-2 figures without text: {len(figures)}; descriptions in lecture_slides: {len(found)}")
+page_lines = {r.page: r.text.split("\n") for r in slides if r.lecture_id == "lecture-2" and r.kind == "slides"}
+MIN_SIMILARITY = 0.6
+
+matches = []
 for f in figures:
-    logger.info(f"  page {f.page}: {f.description[:100]!r}")
-assert len(found) == len(figures), "Some figure descriptions are missing from lecture_slides"
+    score, line = max((SequenceMatcher(None, f.description, line).ratio(), line) for line in page_lines[f.page])
+    matches.append(score >= MIN_SIMILARITY)
+    logger.info(f"  page {f.page}: similarity {score:.2f}")
+    logger.info(f"    parsed now: {f.description[:100]!r}")
+    logger.info(f"    stored:     {line[:100]!r}")
+logger.info(f"lecture-2 figures without text: {len(figures)}; descriptions in lecture_slides: {sum(matches)}")
+assert all(matches), "Some figure descriptions are missing from lecture_slides"
 
 # COMMAND ----------
 
