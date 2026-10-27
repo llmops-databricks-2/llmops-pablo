@@ -56,7 +56,7 @@ tables = {name: f"{cfg.full_schema_name}.{name}" for name in ["lecture_transcrip
 # COMMAND ----------
 # Row counts, schemas and sample rows of each table.
 
-for name, table in tables.items():
+for table in tables.values():
     df = spark.table(table)
     logger.info(f"{table}: {df.count()} rows")
     df.printSchema()
@@ -96,3 +96,150 @@ dup_text = (
 )
 logger.info(f"Texts stored more than once: {dup_text.count()}")
 dup_text.select("copies", "chunk_ids", F.substring("text", 1, 80).alias("text")).show(truncate=False)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Source comparison
+# MAGIC
+# MAGIC A few chunks next to what they were built from, to see which structure parsing and chunking lose.
+# MAGIC
+# MAGIC - **Page chunks** are compared with the page's `ai_parse_document` elements and their types, which
+# MAGIC   `lecture_slides` does not keep. The cell parses only the sampled PDFs again, which is billable.
+# MAGIC   Open each PDF at the same page to check the parse itself.
+# MAGIC - **Transcript chunks** are compared with the turns in their offset range. Speaker names stay out of
+# MAGIC   the output.
+
+# COMMAND ----------
+# The sample: the longest and the shortest chunk of each page source, the first two transcript chunks
+# built from the longest turn, and the transcript chunk that spans the most turns.
+
+pages = chunks.where(F.col("page").isNotNull())
+page_sample = []
+for source in sorted(r.source for r in pages.select("source").distinct().collect()):
+    for order in [F.desc("word_count"), F.asc("word_count")]:
+        page_sample.append(pages.where(F.col("source") == source).orderBy(order, "chunk_id").first().chunk_id)
+
+transcript = spark.table(tables["lecture_transcript"]).withColumn(
+    "words", F.size(F.split(F.trim(F.col("text")), r"\s+"))
+)
+c, t = chunks.where(F.col("source") == "transcript").alias("c"), transcript.alias("t")
+# A chunk spans from its first turn's offset up to the next turn's offset; the last chunk of a lecture
+# starts and ends on the same offset.
+covered = c.join(
+    t,
+    (F.col("c.lecture_id") == F.col("t.lecture_id"))
+    & (F.col("t.offset_seconds") >= F.col("c.start_offset_seconds"))
+    & (
+        (F.col("t.offset_seconds") < F.col("c.end_offset_seconds"))
+        | (F.col("t.offset_seconds") == F.col("c.start_offset_seconds"))
+    ),
+).select("c.chunk_id", "t.turn", "t.offset_seconds", "t.words", "t.text")
+
+longest = transcript.orderBy(F.desc("words")).first()
+from_longest = [
+    r.chunk_id
+    for r in c.where(
+        (F.col("lecture_id") == longest.lecture_id) & (F.col("start_offset_seconds") == longest.offset_seconds)
+    )
+    .orderBy("chunk_id")
+    .limit(2)
+    .collect()
+]
+most_turns = covered.groupBy("chunk_id").count().orderBy(F.desc("count"), "chunk_id").first().chunk_id
+transcript_sample = sorted({*from_longest, most_turns})
+
+logger.info(f"Page chunks: {page_sample}")
+logger.info(f"Longest turn: {longest.lecture_id} turn {longest.turn}, {longest.words} words")
+logger.info(f"Transcript chunks: {transcript_sample}")
+
+# COMMAND ----------
+# Pages that produced no chunk: their text, if any, is lost to search.
+
+slides = spark.table(tables["lecture_slides"])
+skipped = slides.join(
+    chunks.select("lecture_id", F.col("source").alias("kind"), "page"), ["lecture_id", "kind", "page"], "left_anti"
+)
+logger.info(f"Pages without a chunk: {skipped.count()}")
+skipped.select("lecture_id", "kind", "page", "text").orderBy("lecture_id", "kind", "page").show(truncate=False)
+
+# COMMAND ----------
+# Parse the sampled PDFs again to recover each element's type, then show every sampled page chunk next to
+# its elements. Content and description are kept apart: `lecture_slides` takes the content when it is not
+# null, so a figure's description only reaches the chunk when the figure has no content at all.
+
+sampled_pages = chunks.where(F.col("chunk_id").isin(page_sample)).orderBy("chunk_id").collect()
+elements = (
+    spark.read.format("binaryFile")
+    .load(sorted({p.source_path for p in sampled_pages}))
+    .selectExpr("path", "ai_parse_document(content, map('version', '2.0')) AS doc")
+    .selectExpr("path", "posexplode(variant_get(doc, '$.document.elements', 'ARRAY<VARIANT>')) AS (pos, el)")
+    .selectExpr(
+        "path AS source_path",
+        "variant_get(el, '$.bbox[0].page_id', 'INT') + 1 AS page",
+        "pos",
+        "variant_get(el, '$.type', 'STRING') AS type",
+        "variant_get(el, '$.content', 'STRING') AS content",
+        "variant_get(el, '$.description', 'STRING') AS description",
+    )
+    .collect()
+)
+
+# Element types across the sampled PDFs: every type other than text is flattened into the page's text.
+types = {}
+for e in elements:
+    types[e.type] = types.get(e.type, 0) + 1
+logger.info(f"Element types in the sampled PDFs: {dict(sorted(types.items()))}")
+
+for chunk in sampled_pages:
+    page_elements = sorted(
+        (e for e in elements if e.source_path == chunk.source_path and e.page == chunk.page), key=lambda e: e.pos
+    )
+    logger.info(f"{chunk.chunk_id}: {chunk.word_count} words, {len(page_elements)} elements")
+    for e in page_elements:
+        logger.info(f"  [{e.type}] {(e.content or '')[:150]!r}")
+        if e.description:
+            logger.info(f"    description: {e.description[:150]!r}")
+    logger.info(f"  chunk: {chunk.text[:600]!r}")
+
+# COMMAND ----------
+# Every sampled transcript chunk next to the turns in its offset range.
+
+for chunk in chunks.where(F.col("chunk_id").isin(transcript_sample)).orderBy("chunk_id").collect():
+    logger.info(
+        f"{chunk.chunk_id}: {chunk.word_count} words, {chunk.start_offset_seconds}s to {chunk.end_offset_seconds}s"
+    )
+    logger.info(f"  chunk: {chunk.text[:600]!r}")
+    covered.where(F.col("chunk_id") == chunk.chunk_id).drop("chunk_id").orderBy("turn").show(truncate=120)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Lost structure
+# MAGIC
+# MAGIC Observed on 2026-10-27 over kick-off, lecture-1 and lecture-2 (291 chunks).
+# MAGIC
+# MAGIC **Slides and materials**
+# MAGIC
+# MAGIC - **Figure descriptions are dropped.** `ai_parse_document` describes every figure, but `lecture_slides`
+# MAGIC   keeps a figure's content whenever it is not null. A figure with text keeps that text. A figure without
+# MAGIC   text has an empty string as content, so its description is lost: 5 figures in lecture-2's slides.
+# MAGIC - **The logo becomes a letter.** The logo on each slide is read as the content `"C"`, so short slides end
+# MAGIC   in noise: `lecture-2:slides:p036` is `Homework C 36`.
+# MAGIC - **Headers, footers and page numbers stay in the text.** Every page chunk repeats the same boilerplate,
+# MAGIC   such as `CAUCHY · LLMOPS Lecture 2 · October 2026` and `Context engineering and RAG 06 / 15`.
+# MAGIC - **Tables arrive as HTML.** Rows and columns survive, but the `<table><tr><td>` markup is embedded with
+# MAGIC   the text.
+# MAGIC - **Headings run into the body.** Element types are dropped and newlines are collapsed, so titles and
+# MAGIC   section headers become part of the prose.
+# MAGIC - **Screenshots are read as content.** A slide that shows a paper's first page (`lecture-2:slides:p010`,
+# MAGIC   642 words) is mostly that paper's text, not the slide's point. Pages are never split, so it stays one
+# MAGIC   chunk.
+# MAGIC
+# MAGIC **Transcripts**
+# MAGIC
+# MAGIC - **Split turns lose their timing.** Every piece of a long turn carries the whole turn's span. lecture-2
+# MAGIC   turn 8 runs 2,217 words, so its chunks all cite 26 s to 1008 s.
+# MAGIC - **Speakers are dropped by design.** A student's question and the lecturer's answer read as one voice.
+# MAGIC - **Transcription noise is kept.** Short fragments such as greetings or misheard words remain in the
+# MAGIC   chunks.

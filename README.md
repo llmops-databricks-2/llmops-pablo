@@ -67,7 +67,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
 - `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
   `lecture_slides` tables, and `3.1_lecture_chunks_inspection.py`, which checks those tables and
-  `lecture_chunks` for counts, sizes, and empty or duplicate chunks. Like the lecture folders, they
+  `lecture_chunks` for counts, sizes, and empty or duplicate chunks, and compares a sample of chunks with
+  the parsed PDF elements and transcript turns they came from. Like the lecture folders, they
   find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
   (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py` and `github_ingestion.py`. Scripts stay thin:
