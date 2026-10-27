@@ -13,7 +13,7 @@ from loguru import logger
 from pyspark.sql import SparkSession
 
 from arxiv_curator.config import ProjectConfig
-from arxiv_curator.lecture_chunking import chunk_page, chunk_transcript
+from arxiv_curator.lecture_chunking import chunk_page, chunk_transcript, split_sentences
 from arxiv_curator.schemas.lecture_tables import LECTURE_CHUNKS
 from arxiv_curator.utils.lecture_ingestion import write_table
 
@@ -41,7 +41,9 @@ def build_chunks(spark: SparkSession, cfg: ProjectConfig) -> list[dict]:
     chunks = []
     for lecture_id, lecture_turns in sorted(turns.items()):
         path = lecture_turns[0]["source_path"]
-        chunks += [{**c, "source_path": path} for c in chunk_transcript(lecture_id, lecture_turns)]
+        chunks += [
+            {**c, "source_path": path} for c in chunk_transcript(lecture_id, lecture_turns, split=split_sentences)
+        ]
 
     empty_pages = 0
     for row in spark.table(f"{schema}.lecture_slides").orderBy("lecture_id", "kind", "page").collect():

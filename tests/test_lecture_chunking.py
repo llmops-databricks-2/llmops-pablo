@@ -1,6 +1,13 @@
 """Tests for the lecture chunking rules, on made-up turns and pages."""
 
-from arxiv_curator.lecture_chunking import MAX_OVERLAP_WORDS, chunk_page, chunk_transcript, clean_text, split_words
+from arxiv_curator.lecture_chunking import (
+    MAX_OVERLAP_WORDS,
+    chunk_page,
+    chunk_transcript,
+    clean_text,
+    split_sentences,
+    split_words,
+)
 
 
 def turn(n: int, offset: int, words: int, word: str = "w") -> dict:
@@ -69,3 +76,31 @@ def test_chunk_page_keeps_the_page_and_skips_empty_pages() -> None:
     assert chunk["chunk_id"] == "l1:slides:p003"
     assert (chunk["source"], chunk["page"], chunk["text"]) == ("slides", 3, "Delta Lake")
     assert chunk_page("l1", "slides", 4, "  \n ") is None
+
+
+def test_split_sentences_cuts_at_sentence_ends_only() -> None:
+    """Sentences end at a full stop, question or exclamation mark, and only an overlong one is cut."""
+    assert split_sentences("One two. Three? Four five!") == ["One two.", "Three?", "Four five!"]
+    assert split_sentences("a b c d e. f", 2) == ["a b", "c d", "e.", "f"]
+    assert split_sentences("") == []
+
+
+def test_sentence_windows_end_on_sentence_boundaries() -> None:
+    """With sentence pieces, a window closes before a sentence that would not fit, not inside it."""
+    sentence = " ".join(["w"] * 9) + "."
+    turns = [{"turn": 1, "offset_seconds": 0, "text": " ".join([sentence] * 7)}]
+    chunks = chunk_transcript("l1", turns, max_words=25, split=split_sentences)
+    assert [c["word_count"] for c in chunks] == [18, 18, 18, 18, 18, 18]
+    assert all(c["text"].endswith(".") for c in chunks)
+    assert "\n" not in chunks[0]["text"]
+
+
+def test_sentence_windows_carry_the_last_sentence() -> None:
+    """The next window starts with the previous window's last sentence, and turns stay on their own lines."""
+    turns = [
+        {"turn": 1, "offset_seconds": 0, "text": "Alpha one two. Beta three four."},
+        {"turn": 2, "offset_seconds": 30, "text": "Gamma five six."},
+    ]
+    chunks = chunk_transcript("l1", turns, max_words=7, split=split_sentences)
+    assert [c["text"] for c in chunks] == ["Alpha one two. Beta three four.", "Beta three four.\nGamma five six."]
+    assert (chunks[1]["start_offset_seconds"], chunks[1]["end_offset_seconds"]) == (0, 30)

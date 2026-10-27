@@ -68,8 +68,9 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
   `lecture_slides` tables, and `3.1_lecture_chunks_inspection.py`, which checks those tables and
   `lecture_chunks` for counts, sizes, and empty or duplicate chunks, and compares a sample of chunks with
-  the parsed PDF elements and transcript turns they came from. Like the lecture folders, they
-  find `project_config.yml` one level up.
+  the parsed PDF elements and transcript turns they came from, and `3.2_chunking_comparison.py`, which
+  compares the job's chunking with a sentence-based alternative in words and GTE tokens. Like the lecture
+  folders, they find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
   (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py` and `github_ingestion.py`. Scripts stay thin:
   the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
@@ -84,8 +85,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
   volume into the lecture tables. Its `lecture_chunking` task then runs `scripts/lecture_chunking.py`,
-  which splits `lecture_transcript` into windows of up to 300 words and `lecture_slides` into one
-  chunk per page, into `lecture_chunks`, with change data feed on for a Lakebase synced table.
+  which packs the sentences of `lecture_transcript` into windows of up to 300 words and makes each page
+  of `lecture_slides` one chunk, into `lecture_chunks`, with change data feed on for a Lakebase synced table.
   The job has no schedule, and only dev has lecture data so far. The
   `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
   `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its
