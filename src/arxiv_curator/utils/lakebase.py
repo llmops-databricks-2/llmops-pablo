@@ -64,8 +64,7 @@ def index_statements(cfg: ProjectConfig) -> list[str]:
     """
     table = postgres_table(cfg)
     return [
-        f"CREATE INDEX IF NOT EXISTS {SYNCED_TABLE}_embedding_hnsw ON {table} "
-        "USING hnsw (embedding vector_cosine_ops)",
+        f"CREATE INDEX IF NOT EXISTS {SYNCED_TABLE}_embedding_hnsw ON {table} USING hnsw (embedding vector_cosine_ops)",
         f"CREATE INDEX IF NOT EXISTS {SYNCED_TABLE}_text_gin ON {table} USING gin (to_tsvector('english', text))",
     ]
 

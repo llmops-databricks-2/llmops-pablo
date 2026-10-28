@@ -52,7 +52,8 @@ Onboarding does not create an application database or install pgvector. The lect
 `lecture_sync` task enables the pgvector `vector` extension, syncs `lecture_chunks` into the
 read-only synced table `lecture_chunks_synced` (Postgres schema `pablo`, database
 `databricks_postgres`) with `embedding` as `vector(1024)`, and adds an HNSW cosine index and a GIN
-full-text index. Search runs in Postgres on these self-managed embeddings; no Vector Search endpoint
+full-text index. Search runs in Postgres on these self-managed embeddings, through
+`src/arxiv_curator/utils/lecture_search.py` (semantic, filtered and hybrid); no Vector Search endpoint
 is used. Only dev syncs for now: acc and prd share the project and need their own database first.
 
 For a dedicated student project, you and your three deployment service principals have project
@@ -73,9 +74,11 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
   `lecture_slides` tables, and `3.1_lecture_chunks_inspection.py`, which checks those tables and
   `lecture_chunks` for counts, sizes, and empty or duplicate chunks, and compares a sample of chunks with
-  the parsed PDF elements and transcript turns they came from, and `3.2_chunking_comparison.py`, which
-  compares the job's chunking with a sentence-based alternative in words and GTE tokens. Like the lecture
-  folders, they find `project_config.yml` one level up.
+  the parsed PDF elements and transcript turns they came from, and checks the Lakebase synced table by
+  hand; `3.2_chunking_comparison.py`, which compares the job's chunking with a sentence-based alternative
+  in words and GTE tokens; and `3.3_search_comparison.py`, which runs one question set through semantic,
+  filtered and hybrid search in Lakebase and records what changes. Jobs never run these notebooks. Like
+  the lecture folders, they find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
   (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py`, `lecture_sync.py` and
   `github_ingestion.py`. Scripts stay thin:
