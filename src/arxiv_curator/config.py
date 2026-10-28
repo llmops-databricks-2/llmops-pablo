@@ -14,10 +14,15 @@ class ProjectConfig(BaseModel):
     db_schema: str = Field(..., description="Schema name", alias="schema")
     volume: str = Field(..., description="Volume name")
     llm_endpoint: str = Field(..., description="AI Gateway chat model service name")
-    embedding_endpoint: str = Field(..., description="AI Gateway embedding model service name")
+    embedding_endpoint: str = Field(..., description="Embedding model serving endpoint, called with ai_query")
     experiment_path: str = Field(..., description="MLflow experiment path for this environment")
     warehouse_id: str = Field(..., description="Warehouse ID")
     genie_space_id: str | None = Field(None, description="Genie space ID for MCP integration")
+    github_org: str = Field(..., description="GitHub organization whose events are ingested")
+    github_secret_scope: str = Field(..., description="Databricks secret scope holding the GitHub token")
+    github_secret_key: str = Field(..., description="Key of the GitHub token in the secret scope")
+    lakebase_project_id: str = Field(..., description="Lakebase project holding the synced chunk table")
+    usage_policy_id: str | None = Field(None, description="Usage policy for serverless jobs and pipelines")
     system_prompt: str = Field(
         default="You are a helpful AI assistant that helps users find and understand research papers.",
         description="System prompt for the agent",
@@ -34,7 +39,7 @@ class ProjectConfig(BaseModel):
             env: Environment name (dev, acc, prd)
 
         Returns:
-            ProjectConfig instance
+            ProjectConfig instance, with the file's top-level `usage_policy_id` shared by every environment
 
         """
         if env not in ["prd", "acc", "dev"]:
@@ -46,7 +51,7 @@ class ProjectConfig(BaseModel):
         if env not in config_data:
             raise ValueError(f"Environment '{env}' not found in config file")
 
-        return cls(**config_data[env])
+        return cls(**config_data[env], usage_policy_id=config_data.get("usage_policy_id"))
 
     @property
     def schema(self) -> str:

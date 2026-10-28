@@ -11,7 +11,7 @@ the course workspace was provisioned for you before you got this repo, and every
 | Your schema in development, which you manage | `llmops_dev.pablo` |
 | Your schema in acceptance, which you read | `llmops_acc.pablo` |
 | Your schema in production, which you read | `llmops_prd.pablo` |
-| Lecture files volume (dev) | `llmops_dev.pablo.lecture_files`; acc and prd still name `arxiv_files` |
+| Lecture files volume | `llmops_dev.pablo.lecture_files`, defined in the bundle for every target (acc and prd get theirs when those targets are deployed) |
 | SQL warehouse id | `8d8d38f86ea6cc4a` |
 | Usage policy id | `f91fbdfb-b1c9-39a9-9d93-d132a1e63daa` |
 | MLflow experiments | Dev: `/llmops/pablo-dev`; acc: `/llmops/pablo-acc`; prd: `/llmops/pablo-prd` |
@@ -39,16 +39,22 @@ The `databricks-openai` package is not included in this repo’s dependencies. T
 are available through the installed `openai` client with the workspace base URL
 `/ai-gateway/mlflow/v1` and Databricks authentication.
 
-`embedding_endpoint` is a gateway model service despite the existing field name. Generate
-vectors through its embeddings API before storing them in pgvector. It is not a managed
-Vector Search index’s `embedding_model_endpoint_name`.
+`embedding_endpoint` is the `databricks-gte-large-en` serving endpoint, not a gateway model service:
+`ai_query` cannot call custom gateway model services yet. The chunking job embeds every chunk with it
+(1,024 floats), and queries must be embedded with the same endpoint before they are searched with
+pgvector in Lakebase.
 
 ## Lakebase
 
-The `lakebase_instance` value in `project_config.yml` identifies your Lakebase project.
+The `lakebase_project_id` value in `project_config.yml` identifies your Lakebase project.
 All three environments share it; your Unity Catalog schemas remain separate.
-Onboarding does not create an application database or install pgvector. Create the database
-and extensions you need during the course. A Vector Search endpoint is not provisioned.
+Onboarding does not create an application database or install pgvector. The lecture job's
+`lecture_sync` task enables the pgvector `vector` extension, syncs `lecture_chunks` into the
+read-only synced table `lecture_chunks_synced` (Postgres schema `pablo`, database
+`databricks_postgres`) with `embedding` as `vector(1024)`, and adds an HNSW cosine index and a GIN
+full-text index. Search runs in Postgres on these self-managed embeddings, through
+`src/arxiv_curator/utils/lecture_search.py` (semantic, filtered and hybrid); no Vector Search endpoint
+is used. Only dev syncs for now: acc and prd share the project and need their own database first.
 
 For a dedicated student project, you and your three deployment service principals have project
 management access and OAuth Postgres roles with database administration privileges. The project
@@ -66,20 +72,39 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   commit again. Ruff rules are configured in `pyproject.toml`.
 - `notebooks/`: this project's own notebooks, such as `1.3_lecture_data_ingestion.py`, which parses
   the raw lecture files in the volume into the `lectures`, `lecture_transcript`, `lecture_chat` and
-  `lecture_slides` tables. Like the lecture folders, they find `project_config.yml` one level up.
+  `lecture_slides` tables, and `3.1_lecture_chunks_inspection.py`, which checks those tables and
+  `lecture_chunks` for counts, sizes, and empty or duplicate chunks, and compares a sample of chunks with
+  the parsed PDF elements and transcript turns they came from, and checks the Lakebase synced table by
+  hand; `3.2_chunking_comparison.py`, which compares the job's chunking with a sentence-based alternative
+  in words and GTE tokens; and `3.3_search_comparison.py`, which runs one question set through semantic,
+  filtered and hybrid search in Lakebase and records what changes. Jobs never run these notebooks. Like
+  the lecture folders, they find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
-  (`python scripts/lecture_ingestion.py --env dev`). Scripts stay thin: the ingestion itself lives
-  in `src/arxiv_curator/utils/lecture_ingestion.py`, with the table schemas in
-  `src/arxiv_curator/schemas/`, so the notebook and the job run the same code.
+  (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py`, `lecture_sync.py` and
+  `github_ingestion.py`. Scripts stay thin:
+  the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
+  `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
   development mode, the default), `acc` and `prd`. It builds the package as a wheel with `uv build`
   and deploys the `hello` job, named after its target (`job-hello-pablo-dev`,
   `-acc`, `-prd`), one serverless notebook task that installs the wheel and writes one row to the
   `hello` table of your schema in the target's catalog, such as
-  `llmops_dev.pablo.hello`. It also deploys the `lecture_insights_assistant` job
+  `llmops_dev.pablo.hello`. It defines the `lecture_files` volume in each target's schema, protected
+  from `bundle destroy` with `prevent_destroy`. It also deploys the `lecture_insights_assistant` job
   (`job-lecture-insights-assistant-pablo-dev`, `-acc`, `-prd`), whose `lecture_ingestion` task runs
   `scripts/lecture_ingestion.py` on serverless to parse the lecture files in the target's
-  volume into the lecture tables; it has no schedule, and only dev has lecture data so far. The
+  volume into the lecture tables. Its `lecture_chunking` task then runs `scripts/lecture_chunking.py`,
+  which packs the sentences of `lecture_transcript` into windows of up to 300 words and makes each page
+  of `lecture_slides` one chunk, embeds each chunk with `embedding_endpoint`, and writes them to
+  `lecture_chunks`, with change data feed on. Its `lecture_sync` task then runs
+  `scripts/lecture_sync.py`, which syncs `lecture_chunks` into Lakebase (see Lakebase above).
+  The job has no schedule, and only dev has lecture data so far. The
+  `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
+  `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its
+  schedule is unpaused explicitly. It merges the new events of the GitHub organization's public
+  repositories into the `github_events` table, using the read-only GitHub token in the secret scope
+  that `project_config.yml` names (`pablo-github`, key `token`). The token expires: replace it with
+  `databricks secrets put-secret pablo-github token`. The
   course's onboarding does not deploy these jobs yet. Deployment workflows are introduced in a later lecture.
 - `pyproject.toml` and `version.txt`: the package and its version, bumped as the lectures ask.
 - `tests/`: your tests; `test_config.py` checks that `project_config.yml` loads.

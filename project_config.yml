@@ -1,5 +1,6 @@
 # Project configuration for the LLMOps course, filled in for you at onboarding.
-# Resources are provisioned at onboarding except the volume, which you create during the course.
+# Resources are provisioned at onboarding except the volume, which the bundle defines
+# (resources/lecture_files.volume.yml).
 
 # Your usage policy: set it on every serverless job, endpoint and app you create.
 usage_policy_id: "f91fbdfb-b1c9-39a9-9d93-d132a1e63daa"
@@ -13,32 +14,46 @@ dev:
   schema: "pablo"
   volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
-  embedding_endpoint: "course_ops.gateway.embed"
+  # ai_query cannot call custom AI Gateway model services yet, so embeddings use the serving endpoint.
+  embedding_endpoint: "databricks-gte-large-en"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-dev"
+  # The GitHub organization whose events the github_events job ingests, and the secret holding
+  # your read-only GitHub token.
+  github_org: "llmops-databricks-2"
+  github_secret_scope: "pablo-github"
+  github_secret_key: "token"
   # Your provisioned Lakebase project.
-  lakebase_instance: "lb-llmops-pablo"
+  lakebase_project_id: "lb-llmops-pablo"
 
 # Acceptance: your schema in the acceptance catalog, written by your deploys; you read it.
 acc:
   catalog: "llmops_acc"
   schema: "pablo"
-  volume: "arxiv_files"
+  volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
-  embedding_endpoint: "course_ops.gateway.embed"
+  # ai_query cannot call custom AI Gateway model services yet, so embeddings use the serving endpoint.
+  embedding_endpoint: "databricks-gte-large-en"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-acc"
+  github_org: "llmops-databricks-2"
+  github_secret_scope: "pablo-github"
+  github_secret_key: "token"
   # Your provisioned Lakebase project for this environment.
-  lakebase_instance: "lb-llmops-pablo"
+  lakebase_project_id: "lb-llmops-pablo"
 
 # Production: your schema in the production catalog, written by your deploys; you read it.
 prd:
   catalog: "llmops_prd"
   schema: "pablo"
-  volume: "arxiv_files"
+  volume: "lecture_files"
   llm_endpoint: "course_ops.gateway.chat"
-  embedding_endpoint: "course_ops.gateway.embed"
+  # ai_query cannot call custom AI Gateway model services yet, so embeddings use the serving endpoint.
+  embedding_endpoint: "databricks-gte-large-en"
   warehouse_id: "8d8d38f86ea6cc4a"
   experiment_path: "/llmops/pablo-prd"
+  github_org: "llmops-databricks-2"
+  github_secret_scope: "pablo-github"
+  github_secret_key: "token"
   # Your provisioned Lakebase project for this environment.
-  lakebase_instance: "lb-llmops-pablo"
+  lakebase_project_id: "lb-llmops-pablo"
