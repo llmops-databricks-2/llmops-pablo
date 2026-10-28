@@ -5,7 +5,9 @@
 # It runs scripts/lecture_ingestion.py, the job version of notebooks/1.3_lecture_data_ingestion.py
 # without the sample-row checks. It has no schedule; run it after uploading a lecture's files.
 # The lecture_chunking task then runs scripts/lecture_chunking.py, which splits lecture_transcript
-# and lecture_slides into lecture_chunks, with change data feed on for a Lakebase synced table.
+# and lecture_slides into lecture_chunks, embeds each chunk, and turns change data feed on. The
+# lecture_sync task then runs scripts/lecture_sync.py, which syncs lecture_chunks into the Lakebase
+# synced table lecture_chunks_synced and indexes it for pgvector search (dev only for now).
 # Only dev has lecture data so far, so a run in acc or prd fails until those volumes are filled.
 resources:
   jobs:
@@ -36,6 +38,18 @@ resources:
           environment_key: default
           spark_python_task:
             python_file: ../scripts/lecture_chunking.py
+            parameters:
+              - --env
+              - ${bundle.target}
+              - --config
+              - ${workspace.file_path}/project_config.yml
+
+        - task_key: lecture_sync
+          depends_on:
+            - task_key: lecture_chunking
+          environment_key: default
+          spark_python_task:
+            python_file: ../scripts/lecture_sync.py
             parameters:
               - --env
               - ${bundle.target}

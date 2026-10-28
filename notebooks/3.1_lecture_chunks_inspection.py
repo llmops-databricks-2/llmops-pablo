@@ -14,6 +14,7 @@
 # MAGIC | `lecture_transcript` | speaker turn | `lecture_ingestion` task |
 # MAGIC | `lecture_slides` | PDF page (slides and materials) | `lecture_ingestion` task |
 # MAGIC | `lecture_chunks` | chunk: up to 300 words of transcript sentences, or one page, with its embedding | `lecture_chunking` task |
+# MAGIC | `lecture_chunks_synced` (Lakebase Postgres) | chunk, with `embedding` as `vector(1024)` | `lecture_sync` task |
 # MAGIC
 # MAGIC It writes nothing. Run the job first (`databricks bundle run lecture_insights_assistant`).
 
@@ -34,10 +35,12 @@
 # COMMAND ----------
 
 from databricks.connect import DatabricksSession
+from databricks.sdk import WorkspaceClient
 from loguru import logger
 from pyspark.sql import functions as F
 
 from arxiv_curator.config import get_env, load_config
+from arxiv_curator.utils.lakebase import SYNCED_TABLE, check_synced_table, connect, postgres_table
 
 spark = DatabricksSession.builder.getOrCreate()
 
@@ -108,6 +111,30 @@ chunks.select(F.min(F.size("embedding")).alias("min_size"), F.max(F.size("embedd
 
 properties = {r.key: r.value for r in spark.sql(f"SHOW TBLPROPERTIES {tables['lecture_chunks']}").collect()}
 logger.info(f"Change data feed: {properties.get('delta.enableChangeDataFeed', 'false')}")
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Lakebase synced table
+# MAGIC
+# MAGIC The `lecture_sync` task copies `lecture_chunks` into Postgres. This cell repeats the task's checks by
+# MAGIC hand: the sync state, the vector type, the row count against `lecture_chunks` and the indexes. It
+# MAGIC raises if one is wrong. Connecting wakes the Lakebase compute if it is suspended.
+
+# COMMAND ----------
+
+w = WorkspaceClient()
+synced = w.postgres.get_synced_table(name=f"synced_tables/{cfg.full_schema_name}.{SYNCED_TABLE}").status
+logger.info(f"Sync state: {synced.detailed_state} | {synced.message}")
+
+with connect(cfg, w) as conn:
+    check_synced_table(spark, cfg, conn)
+    sample = conn.execute(
+        f"SELECT chunk_id, lecture_id, source, word_count, left(text, 80) FROM {postgres_table(cfg)} "
+        "ORDER BY chunk_id LIMIT 5"
+    ).fetchall()
+for row in sample:
+    logger.info(row)
 
 # COMMAND ----------
 

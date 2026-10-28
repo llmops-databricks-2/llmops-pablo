@@ -24,7 +24,7 @@ dev:
   github_secret_scope: "pablo-github"
   github_secret_key: "token"
   # Your provisioned Lakebase project.
-  lakebase_instance: "lb-llmops-pablo"
+  lakebase_project_id: "lb-llmops-pablo"
 
 # Acceptance: your schema in the acceptance catalog, written by your deploys; you read it.
 acc:
@@ -40,7 +40,7 @@ acc:
   github_secret_scope: "pablo-github"
   github_secret_key: "token"
   # Your provisioned Lakebase project for this environment.
-  lakebase_instance: "lb-llmops-pablo"
+  lakebase_project_id: "lb-llmops-pablo"
 
 # Production: your schema in the production catalog, written by your deploys; you read it.
 prd:
@@ -56,4 +56,4 @@ prd:
   github_secret_scope: "pablo-github"
   github_secret_key: "token"
   # Your provisioned Lakebase project for this environment.
-  lakebase_instance: "lb-llmops-pablo"
+  lakebase_project_id: "lb-llmops-pablo"

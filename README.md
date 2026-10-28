@@ -46,10 +46,14 @@ pgvector in Lakebase.
 
 ## Lakebase
 
-The `lakebase_instance` value in `project_config.yml` identifies your Lakebase project.
+The `lakebase_project_id` value in `project_config.yml` identifies your Lakebase project.
 All three environments share it; your Unity Catalog schemas remain separate.
-Onboarding does not create an application database or install pgvector. Create the database
-and extensions you need during the course. A Vector Search endpoint is not provisioned.
+Onboarding does not create an application database or install pgvector. The lecture job's
+`lecture_sync` task enables the pgvector `vector` extension, syncs `lecture_chunks` into the
+read-only synced table `lecture_chunks_synced` (Postgres schema `pablo`, database
+`databricks_postgres`) with `embedding` as `vector(1024)`, and adds an HNSW cosine index and a GIN
+full-text index. Search runs in Postgres on these self-managed embeddings; no Vector Search endpoint
+is used. Only dev syncs for now: acc and prd share the project and need their own database first.
 
 For a dedicated student project, you and your three deployment service principals have project
 management access and OAuth Postgres roles with database administration privileges. The project
@@ -73,7 +77,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   compares the job's chunking with a sentence-based alternative in words and GTE tokens. Like the lecture
   folders, they find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
-  (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py` and `github_ingestion.py`. Scripts stay thin:
+  (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py`, `lecture_sync.py` and
+  `github_ingestion.py`. Scripts stay thin:
   the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
   `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
@@ -88,7 +93,8 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   volume into the lecture tables. Its `lecture_chunking` task then runs `scripts/lecture_chunking.py`,
   which packs the sentences of `lecture_transcript` into windows of up to 300 words and makes each page
   of `lecture_slides` one chunk, embeds each chunk with `embedding_endpoint`, and writes them to
-  `lecture_chunks`, with change data feed on for a Lakebase synced table.
+  `lecture_chunks`, with change data feed on. Its `lecture_sync` task then runs
+  `scripts/lecture_sync.py`, which syncs `lecture_chunks` into Lakebase (see Lakebase above).
   The job has no schedule, and only dev has lecture data so far. The
   `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
   `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its
