@@ -28,6 +28,8 @@ dev:
   github_secret_key: "token"
   # Your provisioned Lakebase project.
   lakebase_project_id: "lb-llmops-pablo"
+  # The Genie space the bundle deploys (resources/lecture_insights.genie_space.yml); from `bundle summary`.
+  genie_space_id: "01f1e35624421ab6afe9781b6861b3a3"
 
 # Acceptance: your schema in the acceptance catalog, written by your deploys; you read it.
 acc:

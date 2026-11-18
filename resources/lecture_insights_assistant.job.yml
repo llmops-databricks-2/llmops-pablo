@@ -7,7 +7,9 @@
 # The lecture_chunking task then runs scripts/lecture_chunking.py, which splits lecture_transcript
 # and lecture_slides into lecture_chunks, embeds each chunk, and turns change data feed on. The
 # lecture_sync task then runs scripts/lecture_sync.py, which syncs lecture_chunks into the Lakebase
-# synced table lecture_chunks_synced and indexes it for pgvector search (dev only for now).
+# synced table lecture_chunks_synced and indexes it for pgvector search (dev only for now). The
+# agent_functions task then runs scripts/agent_functions.py, which creates the agent's Unity Catalog
+# function get_transcript_segment over lecture_transcript.
 # Only dev has lecture data so far, so a run in acc or prd fails until those volumes are filled.
 resources:
   jobs:
@@ -50,6 +52,18 @@ resources:
           environment_key: default
           spark_python_task:
             python_file: ../scripts/lecture_sync.py
+            parameters:
+              - --env
+              - ${bundle.target}
+              - --config
+              - ${workspace.file_path}/project_config.yml
+
+        - task_key: agent_functions
+          depends_on:
+            - task_key: lecture_sync
+          environment_key: default
+          spark_python_task:
+            python_file: ../scripts/agent_functions.py
             parameters:
               - --env
               - ${bundle.target}

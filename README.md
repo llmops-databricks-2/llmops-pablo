@@ -83,7 +83,9 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py`, `lecture_sync.py` and
   `github_ingestion.py`. `agent_tools_check.py` is run by hand, not by a job: it tests the agent's
   custom function tools directly and through the agent loop
-  (`DATABRICKS_CONFIG_PROFILE=<profile> python scripts/agent_tools_check.py --env dev`). Scripts stay thin:
+  (`DATABRICKS_CONFIG_PROFILE=<profile> python scripts/agent_tools_check.py --env dev`).
+  `agent_mcp_check.py`, also run by hand, does the same for the MCP tools: the Genie space, including a
+  follow-up in the same conversation, and `get_transcript_segment`. Scripts stay thin:
   the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
   `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
@@ -99,8 +101,11 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   which packs the sentences of `lecture_transcript` into windows of up to 300 words and makes each page
   of `lecture_slides` one chunk, embeds each chunk with `embedding_endpoint`, and writes them to
   `lecture_chunks`, with change data feed on. Its `lecture_sync` task then runs
-  `scripts/lecture_sync.py`, which syncs `lecture_chunks` into Lakebase (see Lakebase above).
-  The job has no schedule, and only dev has lecture data so far. The
+  `scripts/lecture_sync.py`, which syncs `lecture_chunks` into Lakebase (see Lakebase above). Its
+  `agent_functions` task then runs `scripts/agent_functions.py`, which creates the agent's UC function
+  `get_transcript_segment`. The bundle also deploys the `lecture-insights-space` Genie space over
+  `lectures`, `lecture_chat` and `github_events`; dev's space ID is `genie_space_id` in
+  `project_config.yml`. The job has no schedule, and only dev has lecture data so far. The
   `github_events` job (`job-github-events-pablo-dev`, `-acc`, `-prd`) runs
   `scripts/github_ingestion.py` at 08:00, 12:00 and 18:00 Amsterdam time, in dev too: its
   schedule is unpaused explicitly. It merges the new events of the GitHub organization's public
