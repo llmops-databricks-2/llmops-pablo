@@ -85,8 +85,8 @@ The structure follows the ArXiv curator: **1 prepare → 2 deploy → 3 call →
   timestamps, into `lecture_transcript`. Teams chats are split into messages with UTC times, into
   `lecture_chat`. The transcript header also gives one row per lecture in `lectures`.
 - **Content path (left column):** slide pages and transcript turns are chunked, embedded with the
-  course embedding service (GTE Large) and stored in **Lakebase pgvector**. A UC function exposes
-  content search to the agent as an MCP tool.
+  course embedding service (GTE Large) and stored in **Lakebase pgvector**. A custom function gives
+  the agent content search, because a UC function cannot query Lakebase.
 - **Facts path (right column):** the syllabus, chat messages, PR data and transcript turns go
   through an `ai_query` step that produces **LLM-derived data**. It extracts questions, matches them
   to answers, and tags everything to syllabus topics. The results land in Delta tables
