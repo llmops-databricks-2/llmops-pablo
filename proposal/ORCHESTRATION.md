@@ -62,13 +62,15 @@ flowchart TD
 | Genie is still working | Code polls the same message with a bounded wait, then returns a "pending" error. | Polling never asks a new question; resubmitting would duplicate it. |
 | History fails to load | The request stops with an error. | An empty history would hide the failure and break follow-ups. |
 | History fails to save | The answer is returned and a warning is logged. | The lecturer still gets the answer; the next turn shows the gap. |
+| The model replies with neither text nor tool calls | Code asks again with tools disabled, retrying that call once. | GPT-OSS returns an empty reply now and then; the lecturer must never get a blank answer silently. |
 | The caller does not own the session | The request is rejected. | A session ID alone is not an authorization check. |
 
 ## Questions outside the course
 
 When `search_course_content` returns nothing relevant and Genie does not apply, the model says the
-course material does not cover the question. It does not answer from general knowledge. The
-relevance threshold is set when the search tool is tested.
+course material does not cover the question. It does not answer from general knowledge. A score
+threshold does not decide this: in testing, an off-course question scored 0.64, while relevant chunks
+scored from 0.58 to 0.78. The model judges relevance from the excerpts instead.
 
 ## Not yet built
 

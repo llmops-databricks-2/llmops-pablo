@@ -81,7 +81,9 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   the lecture folders, they find `project_config.yml` one level up.
 - `scripts/`: Python scripts that jobs run, such as `lecture_ingestion.py`
   (`python scripts/lecture_ingestion.py --env dev`), `lecture_chunking.py`, `lecture_sync.py` and
-  `github_ingestion.py`. Scripts stay thin:
+  `github_ingestion.py`. `agent_tools_check.py` is run by hand, not by a job: it tests the agent's
+  custom function tools directly and through the agent loop
+  (`DATABRICKS_CONFIG_PROFILE=<profile> python scripts/agent_tools_check.py --env dev`). Scripts stay thin:
   the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
   `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
