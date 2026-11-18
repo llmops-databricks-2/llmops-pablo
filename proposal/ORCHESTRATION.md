@@ -18,7 +18,7 @@ Blue steps are code-controlled. Orange steps are model-directed.
 flowchart TD
     A["Receive question + session_id"] --> B{"Caller owns the session?"}
     B -- no --> X1["Reject: access denied"]
-    B -- yes --> C["Load session history from Lakebase, ordered by id"]
+    B -- yes --> C["Load session history from Lakebase, ordered by seq"]
     C -- load fails --> X2["Stop with error: memory unavailable"]
     C --> D["Build messages: system prompt, history, new question"]
     D --> E{"Model: answer, or call tools?"}
@@ -72,6 +72,6 @@ course material does not cover the question. It does not answer from general kno
 threshold does not decide this: in testing, an off-course question scored 0.64, while relevant chunks
 scored from 0.58 to 0.78. The model judges relevance from the excerpts instead.
 
-## Not yet built
+## Session memory
 
-The ownership check needs an owner column on the session table, which comes with session memory.
+The session table, the owner check and the identities are in [SESSION_MEMORY.md](SESSION_MEMORY.md).

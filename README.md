@@ -85,7 +85,9 @@ suspension after five idle minutes. Creating extra branches or computes can incr
   custom function tools directly and through the agent loop
   (`DATABRICKS_CONFIG_PROFILE=<profile> python scripts/agent_tools_check.py --env dev`).
   `agent_mcp_check.py`, also run by hand, does the same for the MCP tools: the Genie space, including a
-  follow-up in the same conversation, and `get_transcript_segment`. Scripts stay thin:
+  follow-up in the same conversation, and `get_transcript_segment`. `session_memory_check.py`, run by
+  hand too, tests session history in Lakebase: a follow-up in one session, a reload, no duplicate rows, a
+  second session that sees nothing of the first, and another caller rejected. Scripts stay thin:
   the ingestion itself lives in `src/arxiv_curator/utils/`, with the table schemas in
   `src/arxiv_curator/schemas/`, so notebooks and jobs run the same code.
 - `databricks.yml` and `resources/`: the bundle, with three targets, `dev` (your sandbox, in
