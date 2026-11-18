@@ -66,7 +66,7 @@
   <text x="206" y="457" text-anchor="middle" class="small">delta table, embedded</text>
 
   <rect x="116" y="500" width="180" height="62" rx="6" class="b-mcp"/>
-  <text x="206" y="520" text-anchor="middle" class="mcp">MCP tool (UC function)</text>
+  <text x="206" y="520" text-anchor="middle" class="mcp">Custom function</text>
   <text x="216" y="537" text-anchor="middle" class="box">Content search</text>
   <text x="206" y="553" text-anchor="middle" class="small">Lakebase pgvector</text>
 
@@ -121,7 +121,7 @@
   <text x="580" y="242" class="muted">Model serving endpoint</text>
 
   <path d="M534 288 H618" class="edge" marker-end="url(#arrow)"/>
-  <text x="566" y="281" class="label">MCP tools</text>
+  <text x="566" y="281" class="label">tools</text>
 
   <rect x="620" y="262" width="320" height="52" rx="6" class="b-store"/>
   <text x="780" y="293" text-anchor="middle" class="box">Tools</text>
@@ -222,7 +222,7 @@
     <rect x="410" y="-11" width="24" height="15" rx="3" fill="#ffffff" stroke="#d6d6d6"/>
     <text x="442" y="1" class="label">storage or platform service</text>
     <rect x="610" y="-11" width="24" height="15" rx="3" fill="#ffffff" stroke="#e8553e" stroke-width="1.6"/>
-    <text x="642" y="1" class="label">MCP tool</text>
+    <text x="642" y="1" class="label">agent tool</text>
     <rect x="730" y="-11" width="24" height="15" rx="3" fill="#fdece6" stroke="#f0a593"/>
     <text x="762" y="1" class="label">LLM-derived data</text>
     <rect x="890" y="-11" width="24" height="15" rx="3" fill="#f8f8f7" stroke="#dcdcdc" stroke-dasharray="4 3"/>

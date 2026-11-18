@@ -1,0 +1,32 @@
+# The GitHub events job: one serverless Python script task that installs your arxiv_curator wheel,
+# reads the read-only GitHub token from the secret scope named in project_config.yml, and merges the
+# new events of the course organization's public repositories into the github_events table of your
+# schema (dev: llmops_dev.pablo). It runs scripts/github_ingestion.py at 08:00, 12:00 and 18:00
+# Amsterdam time. The schedule is set to UNPAUSED explicitly, as development mode would otherwise
+# pause it in dev. It is separate from the lecture job, which re-parses every PDF on each run.
+resources:
+  jobs:
+    github_events:
+      name: job-github-events-pablo-${bundle.target}
+      budget_policy_id: "f91fbdfb-b1c9-39a9-9d93-d132a1e63daa"
+      schedule:
+        quartz_cron_expression: "0 0 8,12,18 * * ?"
+        timezone_id: Europe/Amsterdam
+        pause_status: UNPAUSED
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "6"
+            dependencies:
+              - ../dist/*.whl
+
+      tasks:
+        - task_key: github_ingestion
+          environment_key: default
+          spark_python_task:
+            python_file: ../scripts/github_ingestion.py
+            parameters:
+              - --env
+              - ${bundle.target}
+              - --config
+              - ${workspace.file_path}/project_config.yml

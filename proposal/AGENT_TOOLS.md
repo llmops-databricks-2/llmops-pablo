@@ -4,6 +4,32 @@ The tools the lecture insights assistant could have, grouped by what each lets i
 kept short on purpose: a small, clearly named set makes it easier for the model to pick the right
 tool, and easier to evaluate. See the [proposal](README.md) for the architecture these tools sit in.
 
+## v1 tool set
+
+The agent starts with three tools, chosen from the candidates below. Each one reads data that
+already exists: the chunks in Lakebase and the Delta tables the prepare job writes. How the agent
+calls them is in [ORCHESTRATION.md](ORCHESTRATION.md).
+
+| Tool | Inputs | Outputs | Runs as | Kind, and why |
+|---|---|---|---|---|
+| `search_course_content` | `query`; optional `lecture_id` (such as `lecture-2`), `source` (`transcript`, `slides` or `materials`), `k` | Chunks with `lecture_id`, `source`, `page` or start and end offsets, an excerpt and a score | The agent's identity: the developer in dev, the serving endpoint's service principal once deployed. It needs a Postgres role that can read `lecture_chunks_synced` and permission to query `databricks-gte-large-en`. | **Custom function.** It embeds the query and runs pgvector SQL over a Postgres connection, which a UC function cannot do. It wraps the helpers in `arxiv_curator.utils.lecture_search`. |
+| `get_transcript_segment` | `lecture_id`, `start_seconds`, `end_seconds` | Up to 100 transcript turns with `turn`, `offset_seconds` and `text`, without the speaker | The caller's UC grants: EXECUTE on the function, SELECT on `lecture_transcript`, and use of the course SQL warehouse. | **UC function through the managed MCP.** It is a plain SQL read of a Delta table, so UC grants govern it. It lets the agent read around a search hit before citing it. |
+| Genie space | A question in plain language; a follow-up reuses the conversation ID | An answer, the SQL Genie ran, and the rows | The caller's identity: CAN RUN on the space, SELECT on its tables, and use of the course SQL warehouse. | **Managed MCP.** It answers open-ended counting and filtering questions over `lectures`, `lecture_chat` and `github_events`. |
+
+**Left out of v1:**
+
+- `list_questions`, `get_syllabus`, `get_coverage` and `get_pr_themes`: the tables they read
+  (`questions`, `syllabus_topics`, `pr_activity`) do not exist yet.
+- `get_slide`: search already returns the page number, and one fewer tool means one fewer wrong
+  choice.
+- The memory tools and the output tools: there is no app or digest for them to serve yet.
+- Session history is not a tool. The agent loads it before the loop and saves it after.
+
+**People stay out of Genie:** the space excludes `lecture_chat.sender`, `github_events.actor`,
+`github_events.repo` (one repository per student) and `github_events.payload`, so Genie never sees a
+name, and its instructions forbid listing or ranking people. `get_transcript_segment` leaves out the
+speaker for the same reason.
+
 ## 1. Find things in course content (content chunks)
 
 | Tool | What it does | Example use |
@@ -12,7 +38,7 @@ tool, and easier to evaluate. See the [proposal](README.md) for the architecture
 | `get_transcript_segment(lecture_id, start, end)` | Returns the exact transcript between two timestamps, to read around a hit. | Checking whether a question was really answered at 00:34 |
 | `get_slide(deck, slide_number)` | Returns a slide's full text and a link to the image. | Citing or quoting a specific slide in a recap |
 
-The first one is the content-search MCP tool in the diagram. The other two are cheap follow-ups
+The first one is the content-search tool in the diagram. The other two are cheap follow-ups
 that let the agent look closer instead of searching again.
 
 ## 2. Ask questions about the LLM-derived data (course facts)

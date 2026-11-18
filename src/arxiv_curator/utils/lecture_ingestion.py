@@ -94,6 +94,9 @@ def parse_text_sources(spark: SparkSession, raw: str) -> dict[str, list[dict]]:
 def parse_pdfs(spark: SparkSession, raw: str) -> DataFrame:
     """Parse the slide and materials PDFs with ai_parse_document, one row per page.
 
+    Each element contributes its content, or its description when the content is empty: a figure without
+    text comes back with an empty string as content, not null, and only its description says what it shows.
+
     Args:
         spark: The Spark session.
         raw: The volume's `raw` directory.
@@ -120,7 +123,7 @@ def parse_pdfs(spark: SparkSession, raw: str) -> DataFrame:
                 transform(
                     array_sort(collect_list(struct(
                         pos,
-                        coalesce(variant_get(el, '$.content', 'STRING'),
+                        coalesce(nullif(trim(variant_get(el, '$.content', 'STRING')), ''),
                                  variant_get(el, '$.description', 'STRING')) AS txt
                     ))),
                     x -> x.txt

@@ -1,0 +1,107 @@
+# The Genie space the lecture insights agent queries through the managed Genie MCP server
+# ({host}/api/2.0/mcp/genie/<space id>). It answers counting and filtering questions over the lecture
+# tables. Columns that name or identify people are excluded so that Genie never sees them: chat senders,
+# GitHub actors, repositories (one per student) and raw event payloads. Genie runs as its caller, who
+# needs CAN RUN on the space, SELECT on these tables and use of the warehouse.
+# Genie validates strictly: every id is 32 lowercase hex characters, id-keyed lists are sorted by id,
+# tables by identifier and column_configs by column_name.
+resources:
+  genie_spaces:
+    lecture-insights-space:
+      title: lecture-insights-space
+      description: Counts and facts about the course's lectures, their Teams chat and the course GitHub activity.
+      warehouse_id: "${var.warehouse_id}"
+      serialized_space:
+        version: 2
+        config:
+          sample_questions:
+            - id: "10000000000000000000000000000001"
+              question: ["How many chat messages were sent per lecture?"]
+            - id: "10000000000000000000000000000002"
+              question: ["How long was each lecture, in minutes?"]
+            - id: "10000000000000000000000000000003"
+              question: ["How many pull request events were there per week?"]
+        data_sources:
+          tables:
+            - identifier: "${var.catalog}.${var.schema}.github_events"
+              column_configs:
+                - column_name: actor
+                  exclude: true
+                - column_name: created_at
+                  description: ["When the GitHub event happened, in UTC."]
+                  enable_format_assistance: true
+                - column_name: id
+                  description: ["GitHub's id of the event."]
+                - column_name: ingested_at
+                  exclude: true
+                - column_name: payload
+                  exclude: true
+                - column_name: repo
+                  exclude: true
+                - column_name: type
+                  description: ["GitHub event type, such as PullRequestEvent, PushEvent or PullRequestReviewEvent."]
+                  synonyms: ["event type"]
+                  enable_format_assistance: true
+            - identifier: "${var.catalog}.${var.schema}.lecture_chat"
+              column_configs:
+                - column_name: ingested_at
+                  exclude: true
+                - column_name: lecture_id
+                  description: ["The lecture the message was sent in, such as lecture-2."]
+                  enable_format_assistance: true
+                - column_name: message
+                  description: ["Position of the message in the lecture's chat, from 1."]
+                - column_name: offset_seconds
+                  description: ["Seconds from the start of the lecture recording when the message was sent."]
+                - column_name: sender
+                  exclude: true
+                - column_name: source_path
+                  exclude: true
+                - column_name: text
+                  description: ["The message text."]
+                - column_name: text_truncated
+                  description: ["True when Teams cut the message text short in the export."]
+                - column_name: ts_utc
+                  description: ["When the message was sent, in UTC."]
+            - identifier: "${var.catalog}.${var.schema}.lectures"
+              column_configs:
+                - column_name: duration_seconds
+                  description: ["Length of the lecture recording in seconds."]
+                - column_name: ingested_at
+                  exclude: true
+                - column_name: lecture_date
+                  description: ["The date of the lecture."]
+                  enable_format_assistance: true
+                - column_name: lecture_id
+                  description: ["The lecture, such as lecture-1. Joins to lecture_chat.lecture_id."]
+                  enable_format_assistance: true
+                - column_name: recording_start_utc
+                  description: ["When the recording started, in UTC."]
+                - column_name: source_path
+                  exclude: true
+        instructions:
+          text_instructions:
+            - id: "30000000000000000000000000000001"
+              content:
+                - "lectures has one row per lecture. lecture_chat has one row per Teams chat message. github_events has one row per GitHub event in the course organization."
+                - "Answer with counts, totals and dates. Never list, count or rank individual people or repositories; the data does not identify them and must not be used to profile students."
+                - "Join lecture_chat to lectures on lecture_id. Order lectures by lecture_date."
+          example_question_sqls:
+            - id: "20000000000000000000000000000001"
+              question: ["How many chat messages were sent per lecture?"]
+              sql:
+                - "SELECT l.lecture_id, l.lecture_date, COUNT(c.message) AS messages "
+                - "FROM ${var.catalog}.${var.schema}.lectures l "
+                - "LEFT JOIN ${var.catalog}.${var.schema}.lecture_chat c ON c.lecture_id = l.lecture_id "
+                - "GROUP BY l.lecture_id, l.lecture_date ORDER BY l.lecture_date"
+            - id: "20000000000000000000000000000002"
+              question: ["How long was each lecture, in minutes?"]
+              sql:
+                - "SELECT lecture_id, lecture_date, ROUND(duration_seconds / 60) AS minutes "
+                - "FROM ${var.catalog}.${var.schema}.lectures ORDER BY lecture_date"
+            - id: "20000000000000000000000000000003"
+              question: ["How many pull request events were there per week?"]
+              sql:
+                - "SELECT date_trunc('WEEK', created_at) AS week, COUNT(*) AS pull_request_events "
+                - "FROM ${var.catalog}.${var.schema}.github_events WHERE type = 'PullRequestEvent' "
+                - "GROUP BY 1 ORDER BY 1"
