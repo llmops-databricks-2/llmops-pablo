@@ -7,7 +7,8 @@ tool, and easier to evaluate. See the [proposal](README.md) for the architecture
 ## v1 tool set
 
 The agent starts with three tools, chosen from the candidates below. Each one reads data that
-already exists: the chunks in Lakebase and the Delta tables the prepare job writes.
+already exists: the chunks in Lakebase and the Delta tables the prepare job writes. How the agent
+calls them is in [ORCHESTRATION.md](ORCHESTRATION.md).
 
 | Tool | Inputs | Outputs | Runs as | Kind, and why |
 |---|---|---|---|---|
