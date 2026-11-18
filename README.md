@@ -12,7 +12,7 @@ the course workspace was provisioned for you before you got this repo, and every
 | Your schema in acceptance, which you read | `llmops_acc.pablo` |
 | Your schema in production, which you read | `llmops_prd.pablo` |
 | Lecture files volume | `llmops_dev.pablo.lecture_files`, defined in the bundle for every target (acc and prd get theirs when those targets are deployed) |
-| SQL warehouse id | `8d8d38f86ea6cc4a` |
+| SQL warehouse id | `77ee620940a2425c` |
 | Usage policy id | `f91fbdfb-b1c9-39a9-9d93-d132a1e63daa` |
 | MLflow experiments | Dev: `/llmops/pablo-dev`; acc: `/llmops/pablo-acc`; prd: `/llmops/pablo-prd` |
 | Chat model service | `course_ops.gateway.chat` |
